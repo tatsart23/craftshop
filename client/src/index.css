@@ -1,12 +1,16 @@
 :root {
-  --main-color: red;
-  --bg-color: green;
-  --seco-color: blue;
+  --main-color: #ffef76;
+  --bg-color: #bfad7f;
+  --seco-color: #ff6550;
+  --font-color: #463b3f;
+  --border-color: #ff6550;
+  --hover-color:linear-gradient(to left,#ff6550, #bfad7f, #ff6550);
+  --button-color:linear-gradient(to left,#bfad7f, #ffef76, #bfad7f);
 }
 
 body {
   background-color: var(--bg-color);
-  color: var(--main-color);
+  color: var(--font-color);
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
@@ -25,13 +29,19 @@ li {
 /* Navbar */
 
 nav{
-  color: var(--seco-color);
-  background-color: red;
+  color: var(--font-color);
+  background-color: var(--main-color);
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
+  border-bottom: 10px solid #ff6550;
+}
+
+nav img{
+  width: 7rem;
+  height: auto;
 }
 
 .links{
@@ -41,8 +51,40 @@ nav{
   align-items: center;
 }
 
+.nav-button {
+  width: 5rem;
+  height: 2rem;
+  display: flex; /* Use Flexbox */
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
+  text-align: center;
+  padding: 0.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  background-image: var(--button-color); /* Use the gradient */
+  background-size: 200%;
+  color: white; 
+  text-decoration: none; 
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.6s;
+  text-transform: uppercase;
+  border-bottom: #ff6550 solid 1px;
+  border-right: #ff6550 solid 1px;
+}
+
+.nav-button:hover {
+  background-position: right; 
+  border-top:#ff6550 solid 1px;
+  border-left:#ff6550 solid 1px;
+  border-right: none;
+  border-bottom: none;
+}
+
+
 .links a{
-  color: var(--seco-color);
+  color: var(--font-color);
   text-decoration: none;
   margin: 0 1rem;
 }
@@ -61,11 +103,21 @@ nav{
 }
 
 .store-wrapper li{
-  width: 18%;
+  width: 15rem;
+  height: auto;
   margin: 1rem;
   padding: 1rem;
-  border: 1px solid var(--seco-color);
+  border: 1px solid var(--border-color);
   border-radius: 5px;
+  background-color: var(--main-color);
+  color: var(--font-color);
+  font-size: 1.2rem;
+}
+
+.store-wrapper li img{
+  width: 100%;
+  height: 10rem;
+  object-fit: cover;
 }
 
 /* About */
@@ -91,8 +143,31 @@ nav{
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: var(--seco-color);
+  padding: 1rem;
+}
+
+.data-wrapper label{
+  margin: 1rem;
+  color: var(--font-color);
 }
 
 .data-wrapper input{
   width: 10rem;
+  padding: 0.5rem;
+}
+
+.data-wrapper textarea{
+  width: 10rem;
+  padding: 0.5rem;
+  font-family: Arial, sans-serif;
+}
+
+.data-wrapper button{
+  padding: 0.5rem;
+  margin: 1rem;
+  background-color: var(--main-color);
+  color: var(--font-color);
+  border: none;
+  border-radius: 5px;
 }

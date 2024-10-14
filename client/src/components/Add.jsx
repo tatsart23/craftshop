@@ -3,35 +3,48 @@ import React, { useState } from "react";
 const Add = () => {
   // State to hold form data
   const [formData, setFormData] = useState({
-    first_name: "",
-    last_name: "",
-    email: "",
-    gender: "",
-    ip_address: ""
+    product_name: "",
+    description: "",
+    description_big: "",
+    price: "",
   });
+
+  // State to hold selected image
+  const [image, setImage] = useState(null);
 
   // Handle input change
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
+  };
+
+  // Handle image selection
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]); // Store the selected file
   };
 
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
 
+    const formDataToSend = new FormData();
+    formDataToSend.append("product_name", formData.product_name);
+    formDataToSend.append("description", formData.description);
+    formDataToSend.append("description_big", formData.description_big);
+    formDataToSend.append("price", formData.price);
+    formDataToSend.append("ip_address", formData.ip_address);
+    if (image) {
+      formDataToSend.append("testImage", image); // Append image if it exists
+    }
+
     try {
-      const response = await fetch("http://localhost:5000/addData", { // Update to correct backend URL
+      const response = await fetch("http://localhost:5000/addData", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData), // Convert formData object to JSON
+        body: formDataToSend, // Send form data as multipart
       });
 
-      // Check if the response body exists and can be parsed as JSON
       const textResponse = await response.text();
       let jsonResponse;
 
@@ -44,14 +57,15 @@ const Add = () => {
 
       if (response.ok) {
         if (jsonResponse) {
-          // Handle success response
-          alert("Data added successfully!");
+          alert("Data and image added successfully!");
           console.log(jsonResponse);
         } else {
           alert("Data added, but the response is not in JSON format.");
         }
       } else {
-        alert("Error: " + (jsonResponse ? jsonResponse.error : "Unknown error"));
+        alert(
+          "Error: " + (jsonResponse ? jsonResponse.error : "Unknown error")
+        );
       }
     } catch (err) {
       console.error("Error:", err);
@@ -61,49 +75,53 @@ const Add = () => {
 
   return (
     <div>
-      <form className="data-wrapper" onSubmit={handleSubmit}>
-        <label>First Name:</label>
+      
+      <form
+        className="data-wrapper"
+        onSubmit={handleSubmit}
+        encType="multipart/form-data"
+      >
+        <h2>Add Product</h2>
+        <label>Product Name:</label>
         <input
-          name="first_name"
-          placeholder="First Name"
-          value={formData.first_name}
+          name="product_name"
+          placeholder="Product Name"
+          value={formData.product_name}
           onChange={handleChange}
         />
 
-        <label>Second Name:</label>
+        <label>Description:</label>
         <input
-          name="last_name"
+          name="description"
           type="text"
-          placeholder="Second Name"
-          value={formData.last_name}
+          placeholder="Description"
+          value={formData.description}
           onChange={handleChange}
         />
 
-        <label>Email:</label>
-        <input
-          name="email"
-          type="email"
-          placeholder="Email"
-          value={formData.email}
+        <label>Description Long:</label>
+        <textarea
+          name="description_big"
+          className="description_big"
+          placeholder="Description Long"
+          value={formData.description_big}
           onChange={handleChange}
         />
 
-        <label>Gender:</label>
+        <label>Price:</label>
         <input
-          name="gender"
-          type="text"
-          placeholder="Gender"
-          value={formData.gender}
+          name="price"
+          type="number"
+          placeholder="Price"
+          value={formData.price}
           onChange={handleChange}
         />
 
-        <label>IP Address:</label>
+        <label>Image:</label>
         <input
-          name="ip_address"
-          type="text"
-          placeholder="IP Address"
-          value={formData.ip_address}
-          onChange={handleChange}
+          type="file"
+          name="testImage"
+          onChange={handleImageChange} // Handle image selection
         />
 
         <button type="submit">Submit</button>

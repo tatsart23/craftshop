@@ -11,6 +11,7 @@ const path = require('path');
 // Import models
 const ImageModel = require('./models/imageModel');
 
+
 // Initialize dotenv to load environment variables
 dotenv.config();
 console.log('MongoDB URI:', process.env.URI)
@@ -23,6 +24,7 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
+app.use('/uploads', express.static('uploads'));
 
 // Check if 'uploads' directory exists, if not, create it
 if (!fs.existsSync('./uploads')) {
@@ -52,11 +54,11 @@ if (!fs.existsSync('./uploads')) {
 // Schema for the 'Store' collection
 const StoreSchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    first_name: String,
-    last_name: String,
-    email: String,
-    gender: String,
-    ip_address: String
+    product_name: String,
+    description: String,
+    description_big: String,
+    price: Number,
+    imagePath: String // Tallennetaan kuvan tiedostopolku
 });
 
 const Store = mongoose.model('Store', StoreSchema, 'store');
@@ -77,29 +79,32 @@ const upload = multer({ storage }).single('testImage');
 app.get("/getStore", async (req, res) => {
     try {
         const data = await Store.find({});
-        res.status(200).json(data);
+        res.status(200).json(data); // Kuva polku sisältyy jo `data`-objektiin
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 });
 
+
+
 //POST: Add data to the 'store' collection
-app.post("/addData", async (req, res) => {
+app.post("/addData", upload, async (req, res) => {
     try {
-        const { first_name, last_name, email, gender, ip_address } = req.body;
+        const { product_name, description, description_big, price, Numberress } = req.body;
 
         const newStore = new Store({
             _id: new mongoose.Types.ObjectId(),
-            first_name,
-            last_name,
-            email,
-            gender,
-            ip_address
+            product_name,
+            description,
+            description_big,
+            price,
+            imagePath: req.file ? `/uploads/${req.file.filename}` : null // Tallennetaan kuvan polku
         });
 
-        await newStore.save();
+        await newStore.save(); // Tallennetaan tietokantaan
         res.status(201).json({ message: 'Data added successfully', data: newStore });
     } catch (err) {
+        console.error(err);
         res.status(500).json({ error: err.message });
     }
 });
