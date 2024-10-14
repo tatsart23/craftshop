@@ -82,3 +82,17 @@ nav{
   padding: 1rem;
   background-color: var(--seco-color);
 }
+
+/*Add*/
+
+.data-wrapper{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.data-wrapper input{
+  width: 10rem;
+}
