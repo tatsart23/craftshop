@@ -1,13 +1,11 @@
-import React, { useState } from 'react'
-import { useAuth } from './AuthProvider'
-
+import React, { useState } from "react";
+import { useAuth } from "./AuthProvider";
 
 const Login = () => {
   const [input, setInput] = useState({
-    username: '',
-    password: '',
-  
-  })
+    username: "",
+    password: "",
+  });
 
   const auth = useAuth();
 
@@ -15,55 +13,52 @@ const Login = () => {
     e.preventDefault();
     if (input.username !== "" && input.password !== "") {
       auth.loginAction(input);
-      return
+      return;
     }
     alert("Please fill in the form");
-  }
+  };
 
   const handleInput = (e) => {
     const { name, value } = e.target;
     setInput((prev) => ({
       ...prev,
       [name]: value,
-    }))
-  }
+    }));
+  };
 
-
-
-    return (
-    <form onSubmit={handleSubmitEvent}>
-      <div className="form_control">
-        <label htmlFor="username">Username:</label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          placeholder="username"
-          aria-describedby="username"
-          aria-invalid="false"
-          onChange={handleInput}
-        />
-        <div id="user-email" className="sr-only">
-          
+  return (
+    <div className="login-container ">
+      <form onSubmit={handleSubmitEvent}>
+        <div className="form-control">
+          <label htmlFor="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Username"
+            aria-describedby="username"
+            aria-invalid="false"
+            onChange={handleInput}
+          />
+          <div id="user-email" className="sr-only"></div>
         </div>
-      </div>
-      <div className="form_control">
-        <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          aria-describedby="user-password"
-          aria-invalid="false"
-          onChange={handleInput}
-        />
-        <div id="user-password" className="sr-only">
-         
+        <div className="form-control">
+          <label htmlFor="password">Password:</label>
+          <input
+            placeholder="Password"
+            type="password"
+            id="password"
+            name="password"
+            aria-describedby="user-password"
+            aria-invalid="false"
+            onChange={handleInput}
+          />
+          <div id="user-password" className="sr-only"></div>
         </div>
-      </div>
-      <button className="btn-submit">Submit</button>
-    </form>
-  )
-}
+        <button className="btn-submit">Submit</button>
+      </form>
+    </div>
+  );
+};
 
-export default Login
+export default Login;
