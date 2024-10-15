@@ -58,9 +58,7 @@ useEffect(() => {
       setToken(token);
     }
   }
-  else {
-    navigate("/login");
-  }
+  
 }
 , [navigate]);
 
