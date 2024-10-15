@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "./AuthProvider";
 import HomeIcon from '@mui/icons-material/Home';
@@ -9,6 +9,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
 
 const Navbar = () => {
+  const [showMenu, setShowMenu] = useState(false);
   const auth = useAuth();
 
   return (
@@ -18,17 +19,22 @@ const Navbar = () => {
           <img src="/img/logo.png" alt="logo" />
         </Link>
       </div>
-      <div className="links">
+      <div className={`menu ${showMenu ? "open" : ""}`} onClick={() => setShowMenu(!showMenu)}>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div className={`links ${showMenu ? "open" : ""}`}>
         <Link to="/" className="nav-button"><HomeIcon />Home</Link>
         <Link to="/about" className="nav-button"><HelpIcon />About</Link>
         <Link to="/store" className="nav-button"><StorefrontIcon />Store</Link>
 
         {auth.token ? (
-          <Link to="/add" className="nav-button"><AddCircleIcon />Add</Link> // Näytetään linkki vain jos käyttäjä on kirjautunut sisään
+          <Link to="/add" className="nav-button"><AddCircleIcon />Add</Link> 
         ) : null}
 
         {auth.token ? (
-          <Link to="/logout" className="nav-button"><LogoutIcon />Logout</Link> // Näytetään logout jos käyttäjä on kirjautunut sisään ja piilotetaan login ja vice versa.
+          <Link to="/logout" className="nav-button"><LogoutIcon />Logout</Link> 
         ) : <Link to="/login" className="nav-button"><LoginIcon/>Log in</Link>}
       </div>
     </nav>
