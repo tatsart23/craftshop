@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useAuth } from "./AuthProvider";
+
 
 const Store = () => {
   const [storeData, setStoreData] = useState([]);
+
+  const auth = useAuth();
 
   useEffect(() => {
     axios
@@ -37,6 +41,8 @@ const Store = () => {
                 <p>Tuote: {item.product_name}</p>
                 <p>Kuvaus: {item.description}</p>
                 <p>Hinta: {item.price}</p>
+                {auth.token ? (<button>Edit</button>) : null} {/* Näytetään vain jos käyttäjä on kirjautunut sisään, tällä hetkellä ei toimintoa */}
+                {auth.token ? (<button>Delete</button>) : null}
               </li>
             ))}
           </ul>

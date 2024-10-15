@@ -5,19 +5,32 @@ import About from './components/About';
 import Store from './components/Store';
 import Container from './components/Container';
 import Add from './components/Add';
+import Login from './components/Login';
+import AuthProvider from './components/AuthProvider';
+import PrivateRoute from './components/PrivateRoute';
+import Logout from './components/Logout';
+
+
 
 function App() {
+
   return (
     <Router>
-      <Navbar />
-      <Container>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/store" element={<Store />} />
-          <Route path="/add" element={<Add />} />
-        </Routes>
-      </Container>
+      <AuthProvider>
+        <Navbar />
+        <Container>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/store" element={<Store />} />
+            <Route element={<PrivateRoute />} > {/*piilotetaan linkit jos käyttäjä ei ole kirjautunut sisään käyttämällä private route komponenttia*/}
+              <Route path="/add" element={<Add />} />
+              <Route path="/logout" element={<Logout />} />
+            </Route>
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </Container>
+      </AuthProvider>
     </Router>
   );
 }
