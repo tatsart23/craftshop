@@ -43,6 +43,7 @@ const Store = () => {
     localStorage.setItem("cart", JSON.stringify(cart));
     console.log("Item added to cart:", item);
     alert(`Item "${item.product_name}" added to cart!`);
+    window.location.reload();
 
 
   };
