@@ -20,9 +20,15 @@ h1,h2,h3,h4,h5,h6 {
 body {
   background-color: var(--bg-color);
   color: var(--font-color);
-  font-family: Arial, sans-serif;
+  font-family: "Caveat", serif;
   margin: 0;
   padding: 0;
+}
+
+h1 {
+  color: var(--font-color);
+  font-family: "Caveat", serif;
+  font-size:3em;
 }
 
 
@@ -67,14 +73,15 @@ nav img{
   width: 5rem;
   font-family: "Caveat", cursive;
   height: 2rem;
-  display: flex; /* Use Flexbox */
-  align-items: center; /* Center vertically */
-  justify-content: center; /* Center horizontally */
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
   text-align: center;
+  font-family: "Caveat", serif;
   padding: 0.5rem;
   font-size: 1rem;
   font-weight: bold;
-  background-image: var(--button-color); /* Use the gradient */
+  background-image: var(--button-color); 
   background-size: 200%;
   color: white; 
   text-decoration: none; 
@@ -268,18 +275,28 @@ nav .menu span{
 .login-container button{
   padding: 0.5rem;
   margin: 1rem;
+  width: 5rem;
+  height: 2.4rem;
   background-image: var(--button-color);
+  font-family: "caveat", serif;
+  font-size: 1.5rem;
+  background-size: 200%;
   color: var(--font-color);
-  border: solid 3px var(--border-color);
+  border: solid 3px var(---color);
   border-radius: 5px;
-  background-size:200%;
+  cursor: pointer;
+  border-bottom: var(--border-color) solid 1px;
+  border-right: var(--border-color) solid 1px;
   transition: 0.6s;
 }
 
 .login-container button:hover{
   background-position: right;
-  height: 2.4rem;
-  width: 4.5rem;
+
+  border-top: var(--border-color) solid 1px;
+  border-left: var(--border-color) solid 1px;
+  border-right: none;
+  border-bottom: none;
 }
 
 /* Media Queries */
@@ -308,6 +325,7 @@ nav .menu span{
   .shop-button{
     right: 2rem;
     bottom: 1rem;
+  }
 }
 
 @media (max-width: 795px){
