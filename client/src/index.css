@@ -288,6 +288,7 @@ nav .menu span{
   .shop-button{
     right: 2rem;
     bottom: 1rem;
+  }
 }
 
 @media (max-width: 795px){
