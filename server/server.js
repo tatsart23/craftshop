@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
+const jwt = require('jsonwebtoken');
 
 // Import models
 const ImageModel = require('./models/imageModel');
@@ -40,7 +41,8 @@ app.post("/login", async (req, res) => {
         }
         const isMatch = await bcrypt.compare(password, user.password); // katsotaan vastaako salasana hashattua salasanaa
         if (isMatch) {
-            res.status(200).json({ message: 'Login successful', token: "testi123", username: user.username });
+            const token = jwt.sign({ username: user.username }, process.env.JWT_SECRET, { expiresIn: 86400 }); 
+            res.status(200).json({ message: 'Login successful', token: token, username: user.username });
         } else {
             res.status(401).json({ message: 'Invalid credentials', token: null });
         }

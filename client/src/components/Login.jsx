@@ -55,7 +55,7 @@ const Login = () => {
           />
           <div id="user-password" className="sr-only"></div>
         </div>
-        <button className="btn-submit">Submit</button>
+        <button className="btn-submit">Login</button>
       </form>
     </div>
   );
