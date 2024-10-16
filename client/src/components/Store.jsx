@@ -75,7 +75,6 @@ const Store = () => {
           <p>No data available</p>
         )}
       </div>
-      <Shopbutton />
     </div>
   );
 };
