@@ -9,7 +9,7 @@ import Login from './components/Login';
 import AuthProvider from './components/AuthProvider';
 import PrivateRoute from './components/PrivateRoute';
 import Logout from './components/Logout';
-
+import Cart from './components/tempCart';
 
 
 function App() {
@@ -21,6 +21,7 @@ function App() {
         <Container>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/cart" element={<Cart />} />
             <Route path="/about" element={<About />} />
             <Route path="/store" element={<Store />} />
             <Route element={<PrivateRoute />} > {/*piilotetaan linkit jos käyttäjä ei ole kirjautunut sisään käyttämällä private route komponenttia*/}

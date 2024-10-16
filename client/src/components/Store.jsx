@@ -23,6 +23,30 @@ const Store = () => {
       });
   }, []);
 
+  const addToCart = (item) => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    
+    const itemIndex = cart.findIndex((cartItem) => cartItem.id === item._id);
+
+    if (itemIndex !== -1) {
+
+      cart[itemIndex].quantity += 1;
+    } 
+    else {
+    cart.push({
+      id: item._id,
+      name: item.product_name,
+      price: item.price,
+      quantity: 1,
+    })};
+    
+    localStorage.setItem("cart", JSON.stringify(cart));
+    console.log("Item added to cart:", item);
+    alert(`Item "${item.product_name}" added to cart!`);
+
+
+  };
+
   return (
     <div>
       <h1>Store</h1>
@@ -43,6 +67,7 @@ const Store = () => {
                 <p>Hinta: {item.price}</p>
                 {auth.token ? (<button>Edit</button>) : null} {/* Näytetään vain jos käyttäjä on kirjautunut sisään, tällä hetkellä ei toimintoa */}
                 {auth.token ? (<button>Delete</button>) : null}
+                <button onClick={() => addToCart(item)} >Add to cart</button>
               </li>
             ))}
           </ul>
