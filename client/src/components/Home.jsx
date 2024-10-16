@@ -10,7 +10,6 @@ const Home = () => {
     {auth.token ? (
       <>
         <p>Welcome {auth.user} </p>
-        <button onClick={auth.logOut}>Log out</button>
       </>
     ) : (
       <p>Welcome</p>

@@ -29,7 +29,9 @@ function App() {
             </Route>
             <Route path="/login" element={<Login />} />
           </Routes>
+          
         </Container>
+        
       </AuthProvider>
     </Router>
   );

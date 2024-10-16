@@ -8,12 +8,20 @@
   --button-color:linear-gradient(to left,#bfad7f, #ffef76, #bfad7f);
 }
 
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
 body {
   background-color: var(--bg-color);
   color: var(--font-color);
   font-family: "Caveat", serif;
   margin: 0;
   padding: 0;
+  
 }
 
 h1 {
@@ -40,7 +48,7 @@ li {
 nav{
   color: var(--font-color);
   background-color: var(--main-color);
-  width: 100%;
+  max-width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
