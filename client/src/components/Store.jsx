@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "./AuthProvider";
-import Shopbutton from "./Shopbutton";
 
 const Store = () => {
   const [storeData, setStoreData] = useState([]);

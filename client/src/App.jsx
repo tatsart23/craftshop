@@ -16,7 +16,6 @@ import Shopbutton from './components/Shopbutton';
 function App() {
   const [cartItems, setCartItems] = useState([]);
 
-  // Load cart from localStorage when the component mounts
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
     setCartItems(storedCart);
