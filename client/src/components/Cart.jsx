@@ -4,7 +4,7 @@ const Cart = ({ cartItems, calculateTotal, calculateTotalItems, removeFromCart, 
 
   return (
     <div>
-      <h2>Your Cart</h2>
+      <h1>Your Cart</h1>
       <p>Total items: {calculateTotalItems()}</p>
       
       {cartItems.length === 0 ? (
