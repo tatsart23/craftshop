@@ -9,19 +9,12 @@
   
 }
 
-h1,h2,h3,h4,h5,h6 {
-  font-family: "Caveat", cursive;
-  font-size: 3rem;
-  color: var(--font-color);
-  font-weight: 700;
-}
-
 
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  box-sizing: border-box; 
 }
 
 body {

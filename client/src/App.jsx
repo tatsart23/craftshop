@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';  // Import React hooks
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import About from './components/About';
@@ -9,10 +10,46 @@ import Login from './components/Login';
 import AuthProvider from './components/AuthProvider';
 import PrivateRoute from './components/PrivateRoute';
 import Logout from './components/Logout';
-import Cart from './components/tempCart';
-
+import Cart from './components/Cart';
+import Shopbutton from './components/Shopbutton';
 
 function App() {
+  const [cartItems, setCartItems] = useState([]);
+
+  // Load cart from localStorage when the component mounts
+  useEffect(() => {
+    const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+    setCartItems(storedCart);
+  }, []);
+
+  // Calculate the total price of the cart
+  const calculateTotal = () => {
+    return cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2);
+  };
+
+  // Calculate the total quantity of items in the cart
+  const calculateTotalItems = () => {
+    return cartItems.reduce((acc, item) => acc + item.quantity, 0);
+  };
+
+  // Function to handle removing an item from the cart
+  const removeFromCart = (itemId) => {
+    const updatedCart = cartItems.filter((item) => item.id !== itemId);
+    setCartItems(updatedCart);
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+  };
+
+  // Handle changing item quantity
+  const updateQuantity = (itemId, newQuantity) => {
+    const updatedCart = cartItems.map((item) => {
+      if (item.id === itemId) {
+        return { ...item, quantity: newQuantity > 0 ? newQuantity : 1 };
+      }
+      return item;
+    });
+    setCartItems(updatedCart);
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+  };
 
   return (
     <Router>
@@ -21,18 +58,28 @@ function App() {
         <Container>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/cart" element={<Cart />} />
+            <Route
+              path="/cart"
+              element={
+                <Cart
+                  cartItems={cartItems}
+                  calculateTotal={calculateTotal}
+                  calculateTotalItems={calculateTotalItems}
+                  removeFromCart={removeFromCart}
+                  updateQuantity={updateQuantity}
+                />
+              }
+            />
             <Route path="/about" element={<About />} />
             <Route path="/store" element={<Store />} />
-            <Route element={<PrivateRoute />} > {/*piilotetaan linkit jos käyttäjä ei ole kirjautunut sisään käyttämällä private route komponenttia*/}
+            <Route element={<PrivateRoute />}> {/*piilotetaan linkit jos käyttäjä ei ole kirjautunut sisään käyttämällä private route komponenttia*/}
               <Route path="/add" element={<Add />} />
               <Route path="/logout" element={<Logout />} />
             </Route>
             <Route path="/login" element={<Login />} />
           </Routes>
-          
-        </Container>
-        
+        </Container> 
+        <Shopbutton totalItems={calculateTotalItems()} /> {/* Pass total items to Shopbutton */}
       </AuthProvider>
     </Router>
   );
