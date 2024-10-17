@@ -4,17 +4,16 @@
   --seco-color: #ff6550;
   --font-color: #463b3f;
   --border-color: #ff6550;
-  --hover-color:linear-gradient(to left,#ff6550, #bfad7f, #ff6550);
-  --button-color:linear-gradient(to left,#bfad7f, #ffef76, #bfad7f);
-  
+  --hover-color: linear-gradient(to left, #ff6550, #bfad7f, #ff6550);
+  --button-color: linear-gradient(to left, #bfad7f, #ffef76, #bfad7f);
 }
 
-
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   padding: 0;
-  box-sizing: border-box; 
+  box-sizing: border-box;
 }
 
 body {
@@ -23,19 +22,17 @@ body {
   font-family: "Caveat", serif;
   margin: 0;
   padding: 0;
-  
 }
 
-p{
+p {
   font-size: 1.4rem;
 }
 
 h1 {
   color: var(--font-color);
   font-family: "Caveat", serif;
-  font-size:3em;
+  font-size: 3em;
 }
-
 
 li {
   list-style: none;
@@ -51,7 +48,7 @@ li {
 
 /* Navbar */
 
-nav{
+nav {
   color: var(--font-color);
   background-color: var(--main-color);
   max-width: 100%;
@@ -62,12 +59,12 @@ nav{
   border-bottom: 10px solid #ff6550;
 }
 
-nav img{
+nav img {
   width: 7rem;
   height: auto;
 }
 
-.links{
+.links {
   display: flex;
   margin: 1rem;
   justify-content: space-between;
@@ -78,18 +75,18 @@ nav img{
   width: 5rem;
   font-family: "Caveat", cursive;
   height: 2rem;
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   font-family: "Caveat", serif;
   padding: 0.5rem;
   font-size: 1rem;
   font-weight: bold;
-  background-image: var(--button-color); 
+  background-image: var(--button-color);
   background-size: 200%;
-  color: white; 
-  text-decoration: none; 
+  color: white;
+  text-decoration: none;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -100,17 +97,17 @@ nav img{
 }
 
 .nav-button:hover {
-  background-position: right; 
-  border-top:#ff6550 solid 1px;
-  border-left:#ff6550 solid 1px;
+  background-position: right;
+  border-top: #ff6550 solid 1px;
+  border-left: #ff6550 solid 1px;
   border-right: none;
   border-bottom: none;
 }
 
-nav .menu{
+nav .menu {
   display: none;
-  top:2.75rem;
-  right:1rem;
+  top: 2.75rem;
+  right: 1rem;
   position: absolute;
   flex-direction: column;
   justify-content: space-between;
@@ -118,14 +115,14 @@ nav .menu{
   height: 2rem;
 }
 
-nav .menu span{
+nav .menu span {
   height: 0.4rem;
-  width:100%;
+  width: 100%;
   background-color: #ffffff;
   border-radius: 0.2rem;
 }
 
-.links a{
+.links a {
   color: var(--font-color);
   text-decoration: none;
   margin: 0 1rem;
@@ -133,7 +130,7 @@ nav .menu span{
 
 /* Modal */
 
-/* Modal backdrop */
+
 .modal {
   position: fixed;
   top: 0;
@@ -147,10 +144,11 @@ nav .menu span{
   z-index: 1000; /* Ensures the modal is on top of other elements */
 }
 
-/* Modal content box */
+
 .modal-content {
   background-color: #fff;
   padding: 20px;
+  display: flex;
   border-radius: 10px;
   width: 90%;
   max-width: 500px; /* Modal max width */
@@ -160,23 +158,33 @@ nav .menu span{
   animation: fadeIn 0.3s ease-in-out; /* Optional animation for appearance */
 }
 
-/* Modal heading */
+.modal img {
+  margin: 1.2rem;
+  width: 15rem;
+  height: 15rem;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
 .modal-content h2 {
   font-size: 24px;
   margin-bottom: 15px;
   font-weight: bold;
 }
 
-/* Modal text */
+
 .modal-content p {
   font-size: 18px;
   margin: 10px 0;
   color: #333;
 }
 
-/* Close button styling */
-.modal-content button {
+
+.modal-close-button {
   background-color: #ff5a5f; /* Soft red background */
+  position: absolute;
+  top: 0rem;
+  right: 0.6rem;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -187,12 +195,18 @@ nav .menu span{
   margin-top: 20px;
 }
 
-/* Button hover effect */
+
 .modal-content button:hover {
   background-color: #ff1e3c; /* Darker red on hover */
 }
 
-/* Modal fade-in animation */
+.modal-info{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -204,22 +218,25 @@ nav .menu span{
   }
 }
 
-
 /* Store */
 
-.store-container{
+.store-container {
   display: flex;
   flex-wrap: wrap;
 }
 
-.store-wrapper{
+.store-wrapper {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
-.store-wrapper li{
-  width: 18rem;
+.store-wrapper li {
+  width: 17.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   height: auto;
   margin: 2rem;
   padding: 1rem;
@@ -228,24 +245,32 @@ nav .menu span{
   background-color: var(--main-color);
   color: var(--font-color);
   font-size: 1.2rem;
+  transition: 0.6s;
 }
 
-.store-wrapper li img{
+.store-wrapper li:hover {
+  width: 18.1rem;
+  -webkit-box-shadow: 0px 0px 20px 0px var(--border-color);
+  -moz-box-shadow: 0px 0px 20px 0px var(--border-color);
+  box-shadow: 0px 0px 20px 0px var(--border-color);
+}
+
+.store-wrapper li img {
   width: 100%;
   height: 15rem;
   object-fit: cover;
 }
 
-.shop-button{
+.shop-button {
   width: 2rem;
   height: 2rem;
   padding: 0.5rem;
-  bottom:2rem;
-  right:4rem;
+  bottom: 2rem;
+  right: 4rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  position:absolute;
+  position: absolute;
   background-image: var(--button-color);
   background-size: 200%;
   color: var(--font-color);
@@ -255,17 +280,37 @@ nav .menu span{
   transition: 0.6s;
 }
 
-.shop-button:hover{
+.shop-button:hover {
   width: 2.5rem;
   height: 2.5rem;
-  bottom:1.5rem;
-  right:3.5rem;
+  bottom: 1.5rem;
+  right: 3.5rem;
+  background-position: right;
+}
+
+.buy-button {
+  width: 7rem;
+  height: 2rem;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: var(--button-color);
+  background-size: 200%;
+  color: var(--font-color);
+  border: 2px solid var(--seco-color);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.6s;
+}
+
+.buy-button:hover {
   background-position: right;
 }
 
 /* About */
 
-.about-container{
+.about-container {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -273,7 +318,7 @@ nav .menu span{
   align-items: center;
 }
 
-.about-wrapper{
+.about-wrapper {
   width: 50%;
   padding: 1rem;
   background-color: var(--main-color);
@@ -282,7 +327,7 @@ nav .menu span{
 
 /*Add*/
 
-.data-wrapper{
+.data-wrapper {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -293,23 +338,23 @@ nav .menu span{
   padding: 1rem;
 }
 
-.data-wrapper label{
+.data-wrapper label {
   margin: 1rem;
   color: var(--font-color);
 }
 
-.data-wrapper input{
+.data-wrapper input {
   width: 10rem;
   padding: 0.5rem;
 }
 
-.data-wrapper textarea{
+.data-wrapper textarea {
   width: 10rem;
   padding: 0.5rem;
   font-family: Arial, sans-serif;
 }
 
-.data-wrapper button{
+.data-wrapper button {
   padding: 0.5rem;
   margin: 1rem;
   background-color: var(--main-color);
@@ -318,40 +363,39 @@ nav .menu span{
   border-radius: 5px;
 }
 
-
 /*Login*/
 
-.login-container{
+.login-container {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding:2rem;
+  padding: 2rem;
   background-color: var(--main-color);
   border: 2px solid var(--border-color);
 }
 
-.form-control{
+.form-control {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
   margin: 1rem;
 }
 
-.form-control label{
+.form-control label {
   margin: 1rem;
   font-size: 1.5rem;
   color: var(--font-color);
 }
 
-.form-control input{
+.form-control input {
   width: 10rem;
   padding: 0.5rem;
   font-size: 1.5rem;
 }
 
-.login-container button{
+.login-container button {
   padding: 0.5rem;
   margin: 1rem;
   width: 5rem;
@@ -369,7 +413,7 @@ nav .menu span{
   transition: 0.6s;
 }
 
-.login-container button:hover{
+.login-container button:hover {
   background-position: right;
 
   border-top: var(--border-color) solid 1px;
@@ -380,47 +424,47 @@ nav .menu span{
 
 /* Media Queries */
 
-@media (max-width: 1250px){
-  .store-wrapper{
-    padding:3rem;
+@media (max-width: 1250px) {
+  .store-wrapper {
+    padding: 3rem;
   }
 
-  .store-wrapper li{
+  .store-wrapper li {
     margin: 1rem;
     width: 25%;
   }
 
-  .shop-button{
+  .shop-button {
     right: 3rem;
     bottom: 2rem;
   }
 }
 
-@media (max-width: 925px){
-  .store-wrapper li{
+@media (max-width: 925px) {
+  .store-wrapper li {
     width: 40%;
   }
 
-  .shop-button{
+  .shop-button {
     right: 2rem;
     bottom: 1rem;
   }
 }
 
-@media (max-width: 795px){
-  .store-wrapper li{
+@media (max-width: 795px) {
+  .store-wrapper li {
     width: 37%;
   }
 
-  .shop-button{
+  .shop-button {
     right: 1rem;
   }
 }
 
-@media (max-width: 670px){
-  nav .menu{
+@media (max-width: 670px) {
+  nav .menu {
     display: flex;
-    cursor: pointer; 
+    cursor: pointer;
   }
 
   nav {
@@ -428,12 +472,12 @@ nav .menu span{
     align-items: start;
   }
 
-  nav .nav-button{
+  nav .nav-button {
     margin: 0.25rem;
     width: 20rem;
   }
 
-  nav .links{
+  nav .links {
     display: none;
     flex-direction: column;
     width: 100%;
@@ -441,7 +485,7 @@ nav .menu span{
     align-items: start;
   }
 
-  nav .links.open{
+  nav .links.open {
     display: flex;
   }
 
@@ -453,43 +497,43 @@ nav .menu span{
     background-color: #333;
     transition: all 0.3s ease;
   }
-  
+
   nav .menu.open span:nth-child(1) {
     transform: rotate(45deg) translate(6px, 10px);
   }
-  
+
   nav .menu.open span:nth-child(2) {
     opacity: 0;
   }
-  
+
   nav .menu.open span:nth-child(3) {
     transform: rotate(-45deg) translate(4px, -10px);
   }
 }
 
-@media (max-width: 645px){
-  .store-wrapper li{
+@media (max-width: 645px) {
+  .store-wrapper li {
     width: 100%;
   }
 }
 
-@media (max-width: 550px){
+@media (max-width: 550px) {
   nav .links {
-    width: 50%
+    width: 50%;
   }
 
-  .container{
+  .container {
     justify-content: center;
     align-items: center;
     justify-items: center;
   }
 
-  .shop-button{
+  .shop-button {
     left: 50%;
     top: 3rem;
   }
 
-  .store-wrapper li{
+  .store-wrapper li {
     width: 60%;
     margin: 0.5rem;
   }
@@ -501,10 +545,26 @@ nav .menu span{
     margin: 0rem;
     padding: 0rem;
   }
+
+  .modal-content {
+    width: 90%;
+    flex-direction: column;
+  }
 }
 
-@media (max-width: 360px){
-  nav .nav-button{
+@media (max-width: 360px) {
+  nav .nav-button {
     width: 17rem;
+  }
+
+  .modal-content {
+    width: 80%;
+  }
+
+  .modal-close-button{
+    padding: 0.5rem;
+    margin-top:4px;
+    top: 0.4rem;
+    right: 0.6rem;
   }
 }
