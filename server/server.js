@@ -9,6 +9,9 @@ const fs = require('fs');
 const path = require('path');
 const jwt = require('jsonwebtoken');
 
+// Stripe
+const stripe = require('stripe')("SECRETKEYHERE")
+
 // Import models
 const ImageModel = require('./models/imageModel');
 
@@ -171,6 +174,34 @@ app.post("/upload", upload, async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+
+// Routes for stripe payment system
+app.post("/create-checkout-session", async (req, res) => {
+    const { products } = req.body;
+
+    const lineItems = products.map((product) => ({
+        price_data: {
+            currency: 'eur',
+            product_data: {
+                name: product.product_name,
+                images: [product.imagePath]
+            },
+            unit_amount: Math.round(product.price * 100)
+        },
+        quantity: product.quantity
+    }));
+
+    const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items: lineItems,
+        mode: 'payment',
+        success_url: `http://localhost:5173/success`,
+        cancel_url: `http://localhost:5173/cancel`
+    });
+
+    res.json({ id: session.id });
+});
+
 
 // Start the server
 app.listen(PORT, () => {
