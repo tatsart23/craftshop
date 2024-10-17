@@ -50,6 +50,7 @@ const Store = () => {
         name: item.product_name,
         price: item.price,
         quantity: 1,
+        image: item.imagePath,
       });
     }
 
