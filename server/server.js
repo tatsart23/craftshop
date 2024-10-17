@@ -10,7 +10,7 @@ const path = require('path');
 const jwt = require('jsonwebtoken');
 
 // Stripe
-const stripe = require('stripe')("SECRETKEYHERE")
+const stripe = require('stripe')("sk_test_51QAtQ2CTfbFpWnW8pnGnI78SCJx319PcM23AcTxCIgOrEJxePqTVhlWXwNH17oSUrvpzBJdTZcOdR7NyCRt2Vrqr00sHOxvlz3");
 
 // Import models
 const ImageModel = require('./models/imageModel');
@@ -179,12 +179,14 @@ app.post("/upload", upload, async (req, res) => {
 app.post("/create-checkout-session", async (req, res) => {
     const { products } = req.body;
 
+    console.log(products);
+
     const lineItems = products.map((product) => ({
         price_data: {
             currency: 'eur',
             product_data: {
-                name: product.product_name,
-                images: [product.imagePath]
+                name: product.name,
+                // images: ["https://i0.wp.com/pearlyarts.com/wp-content/uploads/2023/06/FREE-Umbrella-Clipart-WM.png?fit=1000%2C1000&ssl=1"]
             },
             unit_amount: Math.round(product.price * 100)
         },

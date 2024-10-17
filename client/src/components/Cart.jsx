@@ -1,4 +1,6 @@
 import React from "react";
+import {loadStripe} from "@stripe/stripe-js";
+
 
 const Cart = ({
   cartItems,
@@ -7,6 +9,26 @@ const Cart = ({
   removeFromCart,
   updateQuantity,
 }) => {
+
+  const makePayment = async () => {
+    const stripe = await loadStripe("pk_test_51QAtQ2CTfbFpWnW85jm2MzvGiza1XSJFsaNmk32gc3wqtzBxolwcgLLxpVUP9hHuBzQVNHaYzeyVHrVtBRlWJ55l00peRBW44x")
+    const body = {
+      products: cartItems
+    }
+    console.log(body)
+    const headers = {
+      "Content-Type": "application/json"
+    }
+    const response = await fetch("http://localhost:5000/create-checkout-session", {
+      method: "POST",
+      headers,
+      body: JSON.stringify(body)
+    })
+    const session = await response.json()
+    const result = await stripe.redirectToCheckout({sessionId: session.id})
+  }
+
+
   return (
     <div>
       <h1>Your Cart</h1>
@@ -46,6 +68,7 @@ const Cart = ({
           ))}         
         </div>
       )}
+      <button onClick={makePayment}>Checkout</button>
     </div>
   );
 };
