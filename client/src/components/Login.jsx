@@ -28,9 +28,10 @@ const Login = () => {
 
   return (
     <div className="login-container ">
+      <img src="/img/lehdet.png" alt="" />
       <form onSubmit={handleSubmitEvent}>
         <div className="form-control">
-          <label htmlFor="username">Username:</label>
+          <label htmlFor="username"><h2>Username:</h2></label>
           <input
             type="text"
             id="username"
@@ -43,7 +44,7 @@ const Login = () => {
           <div id="user-email" className="sr-only"></div>
         </div>
         <div className="form-control">
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="password"><h2>Password:</h2></label>
           <input
             placeholder="Password"
             type="password"
@@ -57,6 +58,7 @@ const Login = () => {
         </div>
         <button className="btn-submit">Login</button>
       </form>
+      <img src="/img/lehdet.png" alt="" />
     </div>
   );
 };
