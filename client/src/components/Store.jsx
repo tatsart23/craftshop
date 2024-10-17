@@ -55,6 +55,7 @@ const Store = () => {
 
     localStorage.setItem("cart", JSON.stringify(cart)); // Save updated cart to localStorage
     alert(`Item "${item.product_name}" added to cart!`); // Confirmation message
+    window.location.reload(); // Reload the page to update the cart
   };
 
   return (
