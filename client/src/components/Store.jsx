@@ -93,7 +93,7 @@ const Store = () => {
       
       {/* Render Modal only when it's open */}
       {modalOpen && selectedItem && (
-        <Modal item={selectedItem} onClose={toggleModal} />
+        <Modal item={selectedItem} onClose={toggleModal} addToCart={addToCart} />
       )}
     </div>
   );
