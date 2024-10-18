@@ -12,6 +12,7 @@ import PrivateRoute from './components/PrivateRoute';
 import Logout from './components/Logout';
 import Cart from './components/Cart';
 import Shopbutton from './components/Shopbutton';
+import Success from './components/Success';
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
@@ -36,6 +37,11 @@ function App() {
     const updatedCart = cartItems.filter((item) => item.id !== itemId);
     setCartItems(updatedCart);
     localStorage.setItem('cart', JSON.stringify(updatedCart));
+  };
+
+  const emptyCart = () => {
+    setCartItems([]);
+    localStorage.setItem('cart', JSON.stringify([]));
   };
 
   // Handle changing item quantity
@@ -70,6 +76,7 @@ function App() {
               }
             />
             <Route path="/about" element={<About />} />
+            <Route path="/success" element={<Success emptyCart={emptyCart} />} />
             <Route path="/store" element={<Store />} />
             <Route element={<PrivateRoute />}> {/*piilotetaan linkit jos käyttäjä ei ole kirjautunut sisään käyttämällä private route komponenttia*/}
               <Route path="/add" element={<Add />} />
