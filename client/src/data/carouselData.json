@@ -1,0 +1,15 @@
+{
+    "slides":[
+    {
+        "src":"./img/avaimenpera.png",
+        "alt":"avaimenperä"
+    },
+    {
+        "src":"./img/kasseja.png",
+        "alt":"kasseja"
+    },
+    {
+        "src":"./img/pehmot.png",
+        "alt":"pehmoja"
+    }
+]}
