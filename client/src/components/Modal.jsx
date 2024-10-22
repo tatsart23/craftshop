@@ -6,7 +6,7 @@ const Modal = ({ item, onClose, addToCart }) => {
       <div className="modal-content">
         <div className="modal-img">
           <img
-            src={`http://localhost:5000${item.imagePath}`} // Use imagePath for the image URL
+            src={`${item.imagePath}`} // Use imagePath for the image URL
             alt={`${item.product_name}'s image`}
           />
         </div>

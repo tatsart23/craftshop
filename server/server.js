@@ -8,12 +8,21 @@ const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
 const jwt = require('jsonwebtoken');
+const cloudinary = require('cloudinary').v2;
 
 // Stripe
 const stripe = require('stripe')("sk_test_51QAtQ2CTfbFpWnW8pnGnI78SCJx319PcM23AcTxCIgOrEJxePqTVhlWXwNH17oSUrvpzBJdTZcOdR7NyCRt2Vrqr00sHOxvlz3");
 
 // Import models
 const ImageModel = require('./models/imageModel');
+
+//cloudinary apis etc
+cloudinary.config({
+    cloud_name: "ddcdmrhio",
+    api_key: "987898687194257",
+    api_secret: "o-zdYyiI7pREemCS5-yf9dedvfM"
+});
+
 
 
 // Initialize dotenv to load environment variables
@@ -75,7 +84,7 @@ if (!fs.existsSync('./uploads')) {
         const db = client.db("kukua");
 
         const collections = await db.listCollections().toArray();
-        console.log(collections);
+        
     } catch (err) {
         console.error('MongoDB connection error:', err);
     }
@@ -143,17 +152,22 @@ app.post("/addData", upload, async (req, res) => {
     try {
         const { product_name, description, description_big, price, Numberress } = req.body;
 
+        const result = await cloudinary.uploader.upload(req.file.path, {    // Tallennetaan kuva Cloudinaryyn
+            folder: "kukua"
+        });
+
         const newStore = new Store({
             _id: new mongoose.Types.ObjectId(),
             product_name,
             description,
             description_big,
             price,
-            imagePath: req.file ? `/uploads/${req.file.filename}` : null // Tallennetaan kuvan polku
+            imagePath: req.file ? `${result.secure_url}` : null // Tallennetaan kuvan polku
         });
 
         await newStore.save(); // Tallennetaan tietokantaan
         res.status(201).json({ message: 'Data added successfully', data: newStore });
+        fs.unlinkSync(req.file.path); // Poistetaan tallennettu kuva
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: err.message });
@@ -198,9 +212,8 @@ app.post("/upload", upload, async (req, res) => {
             image: {
                 data: fs.readFileSync(path.join(__dirname, '/uploads/', req.file.filename)),
                 contentType: req.file.mimetype
-            }
+            },
         });
-
         // Save image document to MongoDB
         await newImage.save();
 
@@ -222,7 +235,7 @@ app.post("/create-checkout-session", async (req, res) => {
             currency: 'eur',
             product_data: {
                 name: product.name,
-                // images: ["https://i0.wp.com/pearlyarts.com/wp-content/uploads/2023/06/FREE-Umbrella-Clipart-WM.png?fit=1000%2C1000&ssl=1"]
+                images: [product.image]
             },
             unit_amount: Math.round(product.price * 100)
         },

@@ -48,7 +48,7 @@ const Edit = ({ item, onClose }) => {
           </div>
           <img
             className="edit-img"
-            src={`http://localhost:5000${item.imagePath}`} // imagePath URL
+            src={`${item.imagePath}`} // imagePath URL
             alt={`${item.product_name}'s image`}
           />
           <label>Product Name:</label>
