@@ -124,7 +124,7 @@ const Add = () => {
           onChange={handleImageChange} // Handle image selection
         />
 
-        <button type="submit">Submit</button>
+        <button type="submit" className="add-button">Submit</button>
       </form>
     </div>
   );

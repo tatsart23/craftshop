@@ -147,6 +147,30 @@ app.post("/addData", upload, async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+
+// DELETE: Delete a document from the 'store' collection
+app.delete("/deleteItem/:id", async (req, res) => {
+    try {
+        const { id } = req.params;  // Käytä id:tä, ei _id:tä
+        
+        // Tarkista, onko id kelvollinen MongoDB ObjectId
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ error: 'Invalid ID format' });
+        }
+
+        // Käytä new avainsanaa luodaksesi ObjectId
+        const response = await Store.deleteOne({ _id: new mongoose.Types.ObjectId(id) });
+
+        if (response.deletedCount === 0) {
+            return res.status(404).json({ error: 'Item not found' });
+        }
+
+        res.status(200).json({ message: 'Item deleted successfully', data: response });
+    } catch (err) {
+        console.error('Error during deletion:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
     
 
 // POST: Upload an image to the server and save to MongoDB
