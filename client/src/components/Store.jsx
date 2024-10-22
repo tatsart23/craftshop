@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Modal from "./Modal"; // Modal component
+import Edit from "./Edit"; // Edit component
 import { useAuth } from "./AuthProvider"; // Authentication context
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
@@ -9,6 +10,7 @@ const Store = () => {
   const [storeData, setStoreData] = useState([]); // Store data fetched from backend
   const [modalOpen, setModalOpen] = useState(false); // Modal open/close state
   const [selectedItem, setSelectedItem] = useState(null); // Selected item for the modal
+  const [editItem, setEditItem] = useState(null); // Selected item for editing
   const auth = useAuth(); // Auth token from authentication context
 
   // Fetch store data from the server when the component mounts
@@ -26,6 +28,17 @@ const Store = () => {
         console.error("There was an error fetching the data!", error);
       });
   }, []);
+
+
+  const toggleEdit =(item) => {
+    if (editItem) {
+      setSelectedItem(null); // Clear selected item when closing modal
+    } else {
+      setSelectedItem(item); // Set the selected item when opening modal
+    }
+    setEditItem(!editItem); // Toggle modal open/close state
+  }
+
 
   // Toggle modal visibility and set the selected item
   const toggleModal = (item) => {
@@ -95,8 +108,10 @@ const Store = () => {
                 <p>Kuvaus: {item.description}</p>
                 <p>Hinta: {item.price} €</p>
                 {auth.token ? (
-                  <div className="div">
-                    <button className="store-admin-btn">
+                  <div className="admin-btns">
+                    <button className="store-admin-btn" 
+                    onClick={(e) => {e.stopPropagation()
+                                    toggleEdit(item)}}>
                       <EditIcon />
                     </button>
                     <button className="store-admin-btn"
@@ -130,6 +145,13 @@ const Store = () => {
           item={selectedItem}
           onClose={toggleModal}
           addToCart={addToCart}
+        />
+      )}
+      {editItem && selectedItem && (
+        <Edit
+          item={selectedItem}
+          onClose={toggleEdit}
+          editItem={editItem}
         />
       )}
     </div>
