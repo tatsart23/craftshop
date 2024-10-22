@@ -7,6 +7,7 @@ const Home = () => {
   const auth = useAuth();
   return (
     <div className="home-container">
+      <Carousel data={slides} />
       <h1 className="welcome-text">Home</h1>
 
       {auth.token ? (
@@ -17,7 +18,7 @@ const Home = () => {
         <p>Welcome</p>
       )}
 
-      <Carousel data={slides} />
+      
     </div>
   );
 };

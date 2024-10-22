@@ -59,7 +59,7 @@ li {
 }
 
 /* Home */
-.home-container{
+.home-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -80,9 +80,17 @@ nav {
   border-bottom: 10px solid #ff6550;
 }
 
-nav img {
+.logo{
   width: 7rem;
   height: auto;
+}
+
+nav a:focus {
+  outline: none;
+}
+
+.logo:focus {
+  outline: none;
 }
 
 .links {
@@ -125,6 +133,10 @@ nav img {
   border-bottom: none;
 }
 
+.nav-button:focus {
+  outline: none;
+}
+
 nav .menu {
   display: none;
   top: 2.75rem;
@@ -151,7 +163,6 @@ nav .menu span {
 
 /* Modal */
 
-
 .modal {
   position: fixed;
   top: 0;
@@ -164,7 +175,6 @@ nav .menu span {
   align-items: center;
   z-index: 1000; /* Ensures the modal is on top of other elements */
 }
-
 
 .modal-content {
   background-color: #fff;
@@ -193,13 +203,11 @@ nav .menu span {
   font-weight: bold;
 }
 
-
 .modal-content p {
   font-size: 18px;
   margin: 10px 0;
   color: #333;
 }
-
 
 .modal-close-button {
   background-color: #ff5a5f; /* Soft red background */
@@ -216,12 +224,11 @@ nav .menu span {
   margin-top: 20px;
 }
 
-
 .modal-content button:hover {
   background-color: #ff1e3c; /* Darker red on hover */
 }
 
-.modal-info{
+.modal-info {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -388,7 +395,7 @@ nav .menu span {
 
 .login-container {
   display: flex;
-  justify-content: space-between; 
+  justify-content: space-between;
   align-items: center;
   padding: 2rem;
   background-color: var(--main-color);
@@ -396,12 +403,12 @@ nav .menu span {
 }
 
 .login-container img {
-  width: 8rem; 
+  width: 8rem;
   height: auto;
 }
 
 .login-container img:last-of-type {
-  transform: scaleX(-1); 
+  transform: scaleX(-1);
 }
 
 .form-control {
@@ -410,7 +417,7 @@ nav .menu span {
   flex-direction: column;
   margin: 1rem;
   padding: 1rem;
-  height:auto;
+  height: auto;
   width: 25rem;
   justify-content: center;
   align-items: center;
@@ -426,7 +433,7 @@ nav .menu span {
   width: 10rem;
   padding: 0.5rem;
   font-size: 1.5rem;
-  border:none;
+  border: none;
   font-family: Caveat, serif;
   border-bottom: 2px solid var(--border-color);
   background-color: transparent;
@@ -466,7 +473,7 @@ nav .menu span {
 
 /* Cart */
 
-.cart-wrapper{
+.cart-wrapper {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
@@ -477,16 +484,16 @@ nav .menu span {
   margin-bottom: 1rem;
 }
 
-.cart-wrapper img{
+.cart-wrapper img {
   width: 22rem;
   height: 15rem;
 }
 
-.cart-wrapper input{
+.cart-wrapper input {
   width: 2rem;
-  margin-left:0.2rem;
+  margin-left: 0.2rem;
   padding: 0.5rem;
-  border:none;
+  border: none;
   background-color: transparent;
   color: var(--font-color);
   font-size: 1.5rem;
@@ -501,15 +508,15 @@ nav .menu span {
   justify-content: flex-start; /* Align items horizontally at the start */
 }
 
-.cart-info h3{
+.cart-info h3 {
   margin: 0.5rem;
 }
 
-.cart-info p{
+.cart-info p {
   margin: 0.5rem;
 }
 
-.remove-button{
+.remove-button {
   width: 7rem;
   height: 2rem;
   padding: 0.5rem;
@@ -532,67 +539,90 @@ nav .menu span {
 
 /* Carousel */
 
-.carousel {
+.carousel-container {
+  max-width: 1200px;
+  height: 500px;
+  width: 900px;
+  margin: 0;
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: auto; /* Adjust width to fit content */
-  height: auto; /* Adjust height to fit content */
+  overflow: hidden;
+  margin: 100px auto 0;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  border-radius: 2%;
 }
 
-
-.slide{
-  border-radius: 0.5rem;
-  box-shadow: 0px 0px 7px #666;
-  width: 60rem !important;
-  height: 50rem;
-}
-
-.arrow{
+.slide {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity ease-in-out 0.4s;
   position: absolute;
-  width: 2rem;
-  height: 2rem;
-  color:white;
-  background-color: rgba(0,0,0,0.5);
-  border-radius: 50%;
-  padding: 0.2rem;
+  top: 0;
+  left: 0;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.active-anim {
+  opacity: 1;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 100; 
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.left-arrow {
+  left: 10px; 
+}
+
+.right-arrow {
+  right: 10px;
+}
+
+.arrow svg {
+  font-size: 2.5rem; 
+  color: white; 
+}
+
+.arrow:focus {
+  outline: none;
+}
+
+.dots{
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
-  filter: drop-shadow( 0px 0px 5px black);
 }
 
-.indicators{
-  display: flex;
-  position:absolute;
-  bottom: 1rem;
-}
-
-.slide-hidden{
-  display: none;
-}
-
-.indicator{
+.dot{
+  width: 10px;
+  height: 10px;
   background-color: white;
-  width: 0.5rem;
-  height: 0.7rem;
-  border-radius: 100%;
-  border: none;
-  outline:none;
-  box-shadow: 0px 0px 5px #555;
-  margin: 0 0.2rem;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0 5px;
   cursor: pointer;
+  z-index: 100;
 }
 
-.left-arrow{
-  left: 1rem;
+.dot-active {
+  background-color: #ff6550;
 }
 
-.right-arrow{
-  right: 1rem;
-}
 /* Media Queries */
 
 @media (max-width: 1250px) {
@@ -616,7 +646,7 @@ nav .menu span {
     width: 40%;
   }
 
-  .login-container{
+  .login-container {
     width: 80%;
   }
 
@@ -632,7 +662,7 @@ nav .menu span {
 }
 
 @media (max-width: 850px) {
-  .login-container  {
+  .login-container {
     width: 80%;
   }
 
@@ -647,13 +677,13 @@ nav .menu span {
     width: 37%;
   }
 
-  .login-container{
+  .login-container {
     justify-content: center;
     align-items: center;
   }
 
-  .login-container img{
-    display:none;
+  .login-container img {
+    display: none;
   }
 
   .shop-button {
@@ -731,7 +761,7 @@ nav .menu span {
   .shop-button {
     left: 50%;
     top: 3rem;
-    position:absolute;
+    position: absolute;
   }
 
   .store-wrapper li {
@@ -752,7 +782,7 @@ nav .menu span {
     flex-direction: column;
   }
 
-  .form-control{
+  .form-control {
     width: 90%;
     justify-content: center;
     align-items: center;
@@ -760,14 +790,13 @@ nav .menu span {
     margin: 0;
   }
 
-  .form-control label{
+  .form-control label {
     margin: 0rem;
   }
-  
 }
 
-@media (max-width: 420px){
-  .cart-wrapper img{
+@media (max-width: 420px) {
+  .cart-wrapper img {
     width: 15rem;
     height: 10rem;
   }
@@ -782,12 +811,10 @@ nav .menu span {
     width: 80%;
   }
 
-  .modal-close-button{
+  .modal-close-button {
     padding: 0.5rem;
-    margin-top:4px;
+    margin-top: 4px;
     top: 0.4rem;
     right: 0.6rem;
   }
-
-  
 }
