@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Modal from './Modal'; // Modal component
-import { useAuth } from './AuthProvider'; // Authentication context
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Modal from "./Modal"; // Modal component
+import { useAuth } from "./AuthProvider"; // Authentication context
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import EditIcon from "@mui/icons-material/Edit";
 
 const Store = () => {
   const [storeData, setStoreData] = useState([]); // Store data fetched from backend
@@ -59,6 +61,21 @@ const Store = () => {
     window.location.reload(); // Reload the page to update the cart
   };
 
+  const deleteItem = (item) => {
+    console.log('Deleting item with ID:', item._id);  // Lisää loki ID:stä
+    axios
+      .delete(`http://localhost:5000/deleteItem/${item._id}`)
+      .then((response) => {
+        alert(`Item "${item.product_name}" deleted!`);
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error("There was an error deleting the item!", error);
+        alert(`Error deleting item: ${error.response?.data?.error || 'Unknown error'}`);
+      });
+};
+
+
   return (
     <div>
       <h1>Store</h1>
@@ -77,12 +94,26 @@ const Store = () => {
                 <p>Tuote: {item.product_name}</p>
                 <p>Kuvaus: {item.description}</p>
                 <p>Hinta: {item.price} €</p>
-                {auth.token ? <button>Edit</button> : null} {/* Only show Edit if the user is authenticated */}
-                {auth.token ? <button>Delete</button> : null}
-                <button className="buy-button" onClick={(e) => {
-                  e.stopPropagation(); // Prevent triggering modal on button click
-                  addToCart(item);
-                }}>
+                {auth.token ? (
+                  <div className="div">
+                    <button className="store-admin-btn">
+                      <EditIcon />
+                    </button>
+                    <button className="store-admin-btn"
+                    onClick={(e) => {e.stopPropagation() // Prevent triggering modal on button click
+                                    deleteItem(item)}}>
+                      <DeleteOutlineIcon />
+                    </button>
+                  </div>
+                ) : null}
+
+                <button
+                  className="buy-button"
+                  onClick={(e) => {
+                    e.stopPropagation(); // Prevent triggering modal on button click
+                    addToCart(item);
+                  }}
+                >
                   Add to cart
                 </button>
               </li>
@@ -92,10 +123,14 @@ const Store = () => {
           <p>No data available</p>
         )}
       </div>
-      
+
       {/* Render Modal only when it's open */}
       {modalOpen && selectedItem && (
-        <Modal item={selectedItem} onClose={toggleModal} addToCart={addToCart} />
+        <Modal
+          item={selectedItem}
+          onClose={toggleModal}
+          addToCart={addToCart}
+        />
       )}
     </div>
   );
