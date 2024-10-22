@@ -15,8 +15,8 @@ const Navbar = () => {
   return (
     <nav>
       <div className="logo-wrap">
-        <Link to="/" className="logo">
-          <img src="./img/logo.png" alt="logo" />
+        <Link to="/" >
+          <img src="./img/logo.png" alt="logo" className="logo" />
         </Link>
       </div>
       <div className={`menu ${showMenu ? "open" : ""}`} onClick={() => setShowMenu(!showMenu)}>
