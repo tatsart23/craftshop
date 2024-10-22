@@ -124,7 +124,19 @@ app.get("/getStore", async (req, res) => {
     }
 });
 
+/*PUT: Update a document in the 'store' collection*/
 
+app.put("/editItem/:id", async (req, res) => {
+    const { id } = req.params;
+    const updateData = req.body;
+  
+    try {
+      const updatedItem = await Store.findByIdAndUpdate(id, updateData, { new: true });
+      res.status(200).json({ message: "Item updated successfully", data: updatedItem });
+    } catch (error) {
+      res.status(500).json({ error: "Error updating item" });
+    }
+  });
 
 //POST: Add data to the 'store' collection
 app.post("/addData", upload, async (req, res) => {
