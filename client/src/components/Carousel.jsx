@@ -13,6 +13,13 @@ const Carousel = ({ data }) => {
     setCurrentSlide(currentSlide === 0 ? data.length - 1 : currentSlide - 1);
   };
 
+  const autoPlay = () => {
+    setCurrentSlide(currentSlide === data.length - 1 ? 0 : currentSlide + 1);
+    if (currentSlide === data.length - 1) {
+      setCurrentSlide(0);
+    }
+  }; setInterval(autoPlay, 5000);
+
   return (
     <div className="carousel-container">
       {data.map((slide, index) => (
@@ -31,7 +38,7 @@ const Carousel = ({ data }) => {
 
       {/* Dots */}
       <div className="dots">
-        {data.map((slide, index) => (
+        {data.map((___, index) => (
           <span
             key={index}
             className={currentSlide === index ? "dot dot-active" : "dot"}
