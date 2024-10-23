@@ -100,7 +100,7 @@ const Store = () => {
                 {/* Display modal only for the selected item */}
                 {item.imagePath && (
                   <img
-                    src={`http://localhost:5000${item.imagePath}`} // Use imagePath for the image URL
+                    src={`${item.imagePath}`} // Use imagePath for the image URL
                     alt={`${item.product_name}'s image`}
                   />
                 )}

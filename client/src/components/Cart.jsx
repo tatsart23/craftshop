@@ -43,7 +43,7 @@ const Cart = ({
             <div key={item.id} className="cart-wrapper">
               <div className="cart-img">
                 <img
-                  src={`http://localhost:5000${item.image}`}
+                  src={`${item.image}`}
                   alt={`${item.product_name}'s image`}
                 />
               </div>
