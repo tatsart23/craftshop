@@ -5,6 +5,7 @@ import Edit from "./Edit"; // Edit component
 import { useAuth } from "./AuthProvider"; // Authentication context
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
+import Swal from 'sweetalert2'
 
 const Store = () => {
   const [storeData, setStoreData] = useState([]); // Store data fetched from backend
@@ -70,8 +71,16 @@ const Store = () => {
     }
 
     localStorage.setItem("cart", JSON.stringify(cart)); // Save updated cart to localStorage
-    alert(`Item "${item.product_name}" added to cart!`); // Confirmation message
-    window.location.reload(); // Reload the page to update the cart
+    Swal.fire({
+      background: "red",
+      text: "Tuote lisätty ostoskoriin!",
+      icon: "success",
+      button: "Sulje",
+    })
+    .then(() => {
+      window.location.reload();
+    });
+    
   };
 
   const deleteItem = (item) => {
