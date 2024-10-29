@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 
@@ -6,19 +6,18 @@ const Carousel = ({ data }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const nextSlide = () => {
-    setCurrentSlide(currentSlide === data.length - 1 ? 0 : currentSlide + 1);
+    setCurrentSlide((prev) => (prev === data.length - 1 ? 0 : prev + 1));
   };
 
   const prevSlide = () => {
-    setCurrentSlide(currentSlide === 0 ? data.length - 1 : currentSlide - 1);
+    setCurrentSlide((prev) => (prev === 0 ? data.length - 1 : prev - 1));
   };
 
-  const autoPlay = () => {
-    setCurrentSlide(currentSlide === data.length - 1 ? 0 : currentSlide + 1);
-    if (currentSlide === data.length - 1) {
-      setCurrentSlide(0);
-    }
-  }; setInterval(autoPlay, 5000);
+  
+  useEffect(() => {
+    const interval = setInterval(nextSlide, 5000); 
+    return () => clearInterval(interval); 
+  }, [data.length]);
 
   return (
     <div className="carousel-container">
@@ -28,7 +27,7 @@ const Carousel = ({ data }) => {
         </div>
       ))}
 
-      {/* Arrow buttons */}
+      {/* Nuolinäppäimet */}
       <button className="arrow left-arrow" onClick={prevSlide}>
         <ArrowBackIosNewOutlinedIcon />
       </button>
@@ -36,7 +35,7 @@ const Carousel = ({ data }) => {
         <ArrowForwardIosOutlinedIcon />
       </button>
 
-      {/* Dots */}
+      {/* Pisteet */}
       <div className="dots">
         {data.map((___, index) => (
           <span
