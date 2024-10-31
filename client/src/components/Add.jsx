@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Swal from "sweetalert2";
 
 const Add = () => {
   // State to hold form data
@@ -57,15 +58,46 @@ const Add = () => {
 
       if (response.ok) {
         if (jsonResponse) {
-          alert("Data and image added successfully!");
+          Swal.fire({
+            background: "#ffef76",
+            text: "Data was added successfully!",
+            buttonsStyling: false,
+            confirmButtonColor: "#ff6550",
+            icon: "success",
+            customClass: {
+              confirmButton: "buy-button",
+              popup: "popup-class",
+            },
+            button: "Close",
+          });
           console.log(jsonResponse);
         } else {
-          alert("Data added, but the response is not in JSON format.");
+          Swal.fire({
+            background: "#ffef76",
+            text: "No data was added!",
+            buttonsStyling: false,
+            confirmButtonColor: "#ff6550",
+            icon: "error",
+            customClass: {
+              confirmButton: "buy-button",
+              popup: "popup-class",
+            },
+            button: "Close",
+          });
         }
       } else {
-        alert(
-          "Error: " + (jsonResponse ? jsonResponse.error : "Unknown error")
-        );
+        Swal.fire({
+          background: "#ffef76",
+          text: `Failed to add data: ${jsonResponse?.error || "Unknown error"}`,
+          buttonsStyling: false,
+          confirmButtonColor: "#ff6550",
+          icon: "error",
+          customClass: {
+            confirmButton: "buy-button",
+            popup: "popup-class",
+          },
+          button: "Close",
+        });
       }
     } catch (err) {
       console.error("Error:", err);

@@ -72,10 +72,16 @@ const Store = () => {
 
     localStorage.setItem("cart", JSON.stringify(cart)); // Save updated cart to localStorage
     Swal.fire({
-      background: "red",
+      background: "#ffef76",
       text: "Tuote lisätty ostoskoriin!",
+      buttonsStyling: false,
+      confirmButtonColor: "#ff6550",
       icon: "success",
-      button: "Sulje",
+      customClass: {
+        confirmButton: "buy-button",
+        popup: "popup-class",
+      },
+      button: "Close",
     })
     .then(() => {
       window.location.reload();
@@ -88,8 +94,19 @@ const Store = () => {
     axios
       .delete(`http://localhost:5000/deleteItem/${item._id}`)
       .then((response) => {
-        alert(`Item "${item.product_name}" deleted!`);
+        Swal.fire({
+          background: "#ffef76",
+          text: "Tuote poistettu!",
+          icon: "success",
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: "buy-button",
+            popup: "popup-class",
+            },
+          button: "Close",
+      }).then(() => {
         window.location.reload();
+      });
       })
       .catch((error) => {
         console.error("There was an error deleting the item!", error);
