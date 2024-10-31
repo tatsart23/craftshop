@@ -9,7 +9,7 @@ const Logout = () => {
   return (
     <div>
       <h1>Logout</h1>
-      <button onClick={() => {
+      <button className='logout-button' onClick={() => {
         auth.logOut()
         navigate('/')
       }}>Log out</button>
