@@ -23,7 +23,7 @@ const Carousel = ({ data }) => {
     <div className="carousel-container">
       {data.map((slide, index) => (
         <div key={index} className={currentSlide === index ? "slide active-anim" : "slide"}>
-          <img src={slide.src} alt={slide.title} />
+          <img src={slide.imagePath} alt={slide.title} />
         </div>
       ))}
 

@@ -30,6 +30,9 @@ const Post = () => {
               <div key={index} className="post-item">
                 <h2>{post.title}</h2>
                 <p>{post.content}</p>
+                {post.imagePath && (
+                  <img src={`${post.imagePath}`} alt={post.title} />
+                )}
               </div>
             ))
           ) : (

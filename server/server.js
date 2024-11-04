@@ -18,6 +18,9 @@ const ImageModel = require('./models/imageModel');
 const PostModel = require('./models/postModel');
 const StoreModel = require('./models/storeModel');
 const LoginModel = require('./models/loginModel');
+const CarouselModel = require('./models/carouselModel');
+
+const Store = require('./models/storeModel');
 
 //cloudinary apis etc
 cloudinary.config({
@@ -126,6 +129,16 @@ app.get("/getPost", async (req, res) => {
     }
 });
 
+// GET: Fetch all data from the 'carousel' collection
+app.get("/getCarousel", async (req, res) => {
+    try {
+        const data = await CarouselModel.find({});
+        res.status(200).json(data);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 /*PUT: Update a document in the 'store' collection*/
 
 app.put("/editItem/:id", async (req, res) => {
@@ -149,7 +162,7 @@ app.post("/addData", upload, async (req, res) => {
             folder: "kukua"
         });
 
-        const newStore = new Store({
+        const newStore = new StoreModel({
             _id: new mongoose.Types.ObjectId(),
             product_name,
             description,
@@ -167,13 +180,40 @@ app.post("/addData", upload, async (req, res) => {
     }
 });
 
+//POST: Add carousel image path and text.
+app.post("/addCarousel", upload, async (req, res) => {
+
+    try {
+        const { text } = req.body;
+
+        const result = await cloudinary.uploader.upload(req.file.path, {    // Tallennetaan kuva Cloudinaryyn
+            folder: "kukuacarousel"
+        });
+
+        const newCarousel = new CarouselModel({ text, imagePath: req.file ? `${result.secure_url}` : null });
+        await newCarousel.save();
+        res.status(201).json({ message: 'Carousel added successfully', data: newCarousel });
+        fs.unlinkSync(req.file.path); // Poistetaan tallennettu kuva
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: err.message });
+    }
+});
+
+
 // POST: Add a new post to the 'post' collection
-app.post("/addPost", async (req, res) => {
+app.post("/addPost", upload, async (req, res) => {
     try {
         const { title, content } = req.body;
-        const newPost = new PostModel({ title, content });
+
+        const result = await cloudinary.uploader.upload(req.file.path, {    // Tallennetaan kuva Cloudinaryyn
+            folder: "kukuaposts"
+        });
+
+        const newPost = new PostModel({ title, content, imagePath: req.file ? `${result.secure_url}` : null });
         await newPost.save();
         res.status(201).json({ message: 'Post added successfully', data: newPost });
+        fs.unlinkSync(req.file.path); // Poistetaan tallennettu kuva
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: err.message });
@@ -205,30 +245,30 @@ app.delete("/deleteItem/:id", async (req, res) => {
 });
     
 
-// POST: Upload an image to the server and save to MongoDB
-app.post("/upload", upload, async (req, res) => {
-    try {
-        // Check if a file is uploaded
-        if (!req.file) {
-            return res.status(400).json({ message: 'No file uploaded' });
-        }
+// // POST: Upload an image to the server and save to MongoDB
+// app.post("/upload", upload, async (req, res) => {
+//     try {
+//         // Check if a file is uploaded
+//         if (!req.file) {
+//             return res.status(400).json({ message: 'No file uploaded' });
+//         }
 
-        const newImage = new ImageModel({
-            name: req.file.originalname,
-            image: {
-                data: fs.readFileSync(path.join(__dirname, '/uploads/', req.file.filename)),
-                contentType: req.file.mimetype
-            },
-        });
-        // Save image document to MongoDB
-        await newImage.save();
+//         const newImage = new ImageModel({
+//             name: req.file.originalname,
+//             image: {
+//                 data: fs.readFileSync(path.join(__dirname, '/uploads/', req.file.filename)),
+//                 contentType: req.file.mimetype
+//             },
+//         });
+//         // Save image document to MongoDB
+//         await newImage.save();
 
-        res.status(200).json({ message: 'Image uploaded successfully' });
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({ error: err.message });
-    }
-});
+//         res.status(200).json({ message: 'Image uploaded successfully' });
+//     } catch (err) {
+//         console.log(err);
+//         res.status(500).json({ error: err.message });
+//     }
+// });
 
 // Routes for stripe payment system
 app.post("/create-checkout-session", async (req, res) => {

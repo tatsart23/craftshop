@@ -14,6 +14,8 @@ import Cart from './components/Cart';
 import Shopbutton from './components/Shopbutton';
 import Success from './components/Success';
 import CreatePost from './components/CreatePost';
+import AddCarousel from './components/addCarousel';
+
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
@@ -83,6 +85,7 @@ function App() {
               <Route path="/add" element={<Add />} />
               <Route path="/create" element={<CreatePost/>} />
               <Route path="/logout" element={<Logout />} />
+              <Route path="/addcarousel" element={<AddCarousel />} />
             </Route>
             <Route path="/login" element={<Login />} />
           </Routes>
