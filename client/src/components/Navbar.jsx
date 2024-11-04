@@ -34,6 +34,12 @@ const Navbar = () => {
         ) : null}
 
         {auth.token ? (
+          <Link to="/create" className="nav-button"><AddCircleIcon />Create</Link> 
+        ) : null}
+
+
+
+        {auth.token ? (
           <Link to="/logout" className="nav-button"><LogoutIcon />Logout</Link> 
         ) : <Link to="/login" className="nav-button"><LoginIcon/>Log in</Link>}
       </div>

@@ -5,43 +5,47 @@ import Edit from "./Edit"; // Edit component
 import { useAuth } from "./AuthProvider"; // Authentication context
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
+import { Bars } from "react-loading-icons";
 
 const Store = () => {
   const [storeData, setStoreData] = useState([]); // Store data fetched from backend
   const [modalOpen, setModalOpen] = useState(false); // Modal open/close state
   const [selectedItem, setSelectedItem] = useState(null); // Selected item for the modal
   const [editItem, setEditItem] = useState(null); // Selected item for editing
+  const [loading, setLoading] = useState(false); // Loading state
   const auth = useAuth(); // Auth token from authentication context
 
   // Fetch store data from the server when the component mounts
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/getStore")
-      .then((response) => {
+    const fetchStoreData = async () => {
+      setLoading(true); // Set loading state to true
+      try {
+        const response = await axios.get("http://localhost:5000/getStore");
         if (Array.isArray(response.data)) {
           setStoreData(response.data); // Set the fetched store data
         } else {
           console.error("Data is not an array:", response.data);
         }
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("There was an error fetching the data!", error);
-      });
+      } finally {
+        setLoading(false); // Set loading state to false
+      }
+    };
+
+    fetchStoreData();
   }, []);
 
-
-  const toggleEdit =(item) => {
+  const toggleEdit = (item) => {
     if (editItem) {
       setSelectedItem(null); // Clear selected item when closing modal
     } else {
       setSelectedItem(item); // Set the selected item when opening modal
     }
     setEditItem(!editItem); // Toggle modal open/close state
-  }
+  };
 
-
-  // Toggle modal visibility and set the selected item
   const toggleModal = (item) => {
     if (modalOpen) {
       setSelectedItem(null); // Clear selected item when closing modal
@@ -51,7 +55,6 @@ const Store = () => {
     setModalOpen(!modalOpen); // Toggle modal open/close state
   };
 
-  // Add item to the cart (saved in localStorage)
   const addToCart = (item) => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
@@ -82,15 +85,13 @@ const Store = () => {
         popup: "popup-class",
       },
       button: "Close",
-    })
-    .then(() => {
+    }).then(() => {
       window.location.reload();
     });
-    
   };
 
   const deleteItem = (item) => {
-    console.log('Deleting item with ID:', item._id);  // Lisää loki ID:stä
+    console.log("Deleting item with ID:", item._id); // Lisää loki ID:stä
     axios
       .delete(`http://localhost:5000/deleteItem/${item._id}`)
       .then((response) => {
@@ -102,31 +103,35 @@ const Store = () => {
           customClass: {
             confirmButton: "buy-button",
             popup: "popup-class",
-            },
+          },
           button: "Close",
-      }).then(() => {
-        window.location.reload();
-      });
+        }).then(() => {
+          window.location.reload();
+        });
       })
       .catch((error) => {
         console.error("There was an error deleting the item!", error);
-        alert(`Error deleting item: ${error.response?.data?.error || 'Unknown error'}`);
+        alert(
+          `Error deleting item: ${
+            error.response?.data?.error || "Unknown error"
+          }`
+        );
       });
-};
-
+  };
 
   return (
     <div>
       <h1>Store</h1>
       <div className="store-container">
-        {storeData.length > 0 ? (
+        {loading ? (
+          <Bars color="#ff6550" /> // Show loading spinner
+        ) : storeData.length > 0 ? (
           <ul className="store-wrapper">
             {storeData.map((item) => (
               <li key={item._id} onClick={() => toggleModal(item)}>
-                {/* Display modal only for the selected item */}
                 {item.imagePath && (
                   <img
-                    src={`${item.imagePath}`} // Use imagePath for the image URL
+                    src={`${item.imagePath}`}
                     alt={`${item.product_name}'s image`}
                   />
                 )}
@@ -135,14 +140,22 @@ const Store = () => {
                 <p>Hinta: {item.price} €</p>
                 {auth.token ? (
                   <div className="admin-btns">
-                    <button className="store-admin-btn" 
-                    onClick={(e) => {e.stopPropagation()
-                                    toggleEdit(item)}}>
+                    <button
+                      className="store-admin-btn"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleEdit(item);
+                      }}
+                    >
                       <EditIcon />
                     </button>
-                    <button className="store-admin-btn"
-                    onClick={(e) => {e.stopPropagation() // Prevent triggering modal on button click
-                                    deleteItem(item)}}>
+                    <button
+                      className="store-admin-btn"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        deleteItem(item);
+                      }}
+                    >
                       <DeleteOutlineIcon />
                     </button>
                   </div>
@@ -151,7 +164,7 @@ const Store = () => {
                 <button
                   className="buy-button"
                   onClick={(e) => {
-                    e.stopPropagation(); // Prevent triggering modal on button click
+                    e.stopPropagation();
                     addToCart(item);
                   }}
                 >
@@ -174,11 +187,7 @@ const Store = () => {
         />
       )}
       {editItem && selectedItem && (
-        <Edit
-          item={selectedItem}
-          onClose={toggleEdit}
-          editItem={editItem}
-        />
+        <Edit item={selectedItem} onClose={toggleEdit} editItem={editItem} />
       )}
     </div>
   );

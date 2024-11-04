@@ -15,6 +15,9 @@ const stripe = require('stripe')("sk_test_51QAtQ2CTfbFpWnW8pnGnI78SCJx319PcM23Ac
 
 // Import models
 const ImageModel = require('./models/imageModel');
+const PostModel = require('./models/postModel');
+const StoreModel = require('./models/storeModel');
+const LoginModel = require('./models/loginModel');
 
 //cloudinary apis etc
 cloudinary.config({
@@ -47,7 +50,7 @@ app.use('/uploads', express.static('uploads'));
 app.post("/login", async (req, res) => {
     const { username, password } = req.body;
     try {
-        const user = await Login.findOne({username})
+        const user = await LoginModel.findOne({username})
         if (!user) {
             return res.status(404).json({ message: 'User not found', token: null });
         }
@@ -90,27 +93,6 @@ if (!fs.existsSync('./uploads')) {
     }
 })();
 
-// Schema for the 'Store' collection
-const StoreSchema = new mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId,
-    product_name: String,
-    description: String,
-    description_big: String,
-    price: Number,
-    imagePath: String // Tallennetaan kuvan tiedostopolku
-});
-
-const Store = mongoose.model('Store', StoreSchema, 'store');
-
-//Schema for login
-const LoginSchema = new mongoose.Schema({
-    username: String,
-    password: String
-});
-
-const Login = mongoose.model('Login', LoginSchema, 'logintesti');
-
-
 // Multer setup for handling image uploads
 const storage = multer.diskStorage({
     destination: 'uploads',
@@ -126,8 +108,19 @@ const upload = multer({ storage }).single('testImage');
 // GET: Fetch all data from the 'store' collection
 app.get("/getStore", async (req, res) => {
     try {
-        const data = await Store.find({});
+        const data = await StoreModel.find({});
         res.status(200).json(data); // Kuva polku sisältyy jo `data`-objektiin
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// GET: About page content
+
+app.get("/getPost", async (req, res) => {
+    try {
+        const data = await PostModel.find({});
+        res.status(200).json(data);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -168,6 +161,19 @@ app.post("/addData", upload, async (req, res) => {
         await newStore.save(); // Tallennetaan tietokantaan
         res.status(201).json({ message: 'Data added successfully', data: newStore });
         fs.unlinkSync(req.file.path); // Poistetaan tallennettu kuva
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// POST: Add a new post to the 'post' collection
+app.post("/addPost", async (req, res) => {
+    try {
+        const { title, content } = req.body;
+        const newPost = new PostModel({ title, content });
+        await newPost.save();
+        res.status(201).json({ message: 'Post added successfully', data: newPost });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: err.message });

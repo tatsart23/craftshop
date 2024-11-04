@@ -2,6 +2,7 @@ import React from "react";
 import { useAuth } from "./AuthProvider";
 import Carousel from "./Carousel";
 import { slides } from "../data/carouselData.json";
+import Post from "./Post";
 
 const Home = () => {
   const auth = useAuth();
@@ -17,7 +18,7 @@ const Home = () => {
       ) : (
         <p>Welcome</p>
       )}
-
+      <Post />
       
     </div>
   );
