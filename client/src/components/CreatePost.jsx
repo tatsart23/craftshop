@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+
 const CreatePost = () => {
   const [formData, setFormData] = useState({
     title: '',
     content: '',
   });
+
+  const [image, setImage] = useState(null);
+
 
   // Käsittelee syötekenttien muutokset
   const handleChange = (e) => {
@@ -15,12 +19,23 @@ const CreatePost = () => {
     });
   };
 
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]); // Store the selected file
+  };
+
   // Käsittelee lomakkeen lähetyksen
   const handleSubmit = async (e) => {
     e.preventDefault(); // Estää sivun uudelleenlatauksen
 
+    const formDataToSend = new FormData();
+    formDataToSend.append('title', formData.title);
+    formDataToSend.append('content', formData.content);
+    if (image) {
+      formDataToSend.append('testImage', image);
+    }
+
     try {
-      const response = await axios.post('http://localhost:5000/addPost', formData);
+      const response = await axios.post('http://localhost:5000/addPost', formDataToSend);
       console.log(response.data);
       alert('Post added successfully!');
       // Tyhjennetään lomake lähetyksen jälkeen
@@ -33,7 +48,7 @@ const CreatePost = () => {
 
   return (
     <div>
-      <form className="data-wrapper" onSubmit={handleSubmit}>
+      <form className="data-wrapper" onSubmit={handleSubmit} encType='multipart/form-data'>
         <h2>Create Post</h2>
 
         <label>Title:</label>
@@ -52,6 +67,11 @@ const CreatePost = () => {
           value={formData.content}
           onChange={handleChange}
           required
+        />
+
+        <label>Image:</label>
+        <input type="file" name="image"
+        onChange={handleImageChange}
         />
 
         <button type="submit" className="add-button">Submit</button>

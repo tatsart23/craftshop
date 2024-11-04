@@ -37,6 +37,9 @@ const Navbar = () => {
           <Link to="/create" className="nav-button"><AddCircleIcon />Create</Link> 
         ) : null}
 
+        {auth.token ? (
+          <Link to="/addcarousel" className="nav-button"><AddCircleIcon />Add Carousel</Link> 
+        ) : null}
 
 
         {auth.token ? (
