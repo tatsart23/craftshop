@@ -13,6 +13,7 @@ import Logout from './components/Logout';
 import Cart from './components/Cart';
 import Shopbutton from './components/Shopbutton';
 import Success from './components/Success';
+import CreatePost from './components/CreatePost';
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
@@ -80,6 +81,7 @@ function App() {
             <Route path="/store" element={<Store />} />
             <Route element={<PrivateRoute />}> {/*piilotetaan linkit jos käyttäjä ei ole kirjautunut sisään käyttämällä private route komponenttia*/}
               <Route path="/add" element={<Add />} />
+              <Route path="/create" element={<CreatePost/>} />
               <Route path="/logout" element={<Logout />} />
             </Route>
             <Route path="/login" element={<Login />} />
