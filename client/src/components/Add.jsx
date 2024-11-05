@@ -113,8 +113,8 @@ const Add = () => {
         onSubmit={handleSubmit}
         encType="multipart/form-data"
       >
-        <h2>Add Product</h2>
-        <label>Product Name:</label>
+        <h2>Lisää tuote</h2>
+        <label>Tuotteen nimi:</label>
         <input
           name="product_name"
           placeholder="Product Name"
@@ -122,7 +122,7 @@ const Add = () => {
           onChange={handleChange}
         />
 
-        <label>Description:</label>
+        <label>Kuvaus:</label>
         <input
           name="description"
           type="text"
@@ -131,7 +131,7 @@ const Add = () => {
           onChange={handleChange}
         />
 
-        <label>Description Long:</label>
+        <label>Kuvaus Pitkä:</label>
         <textarea
           name="description_big"
           className="description_big"
@@ -140,7 +140,7 @@ const Add = () => {
           onChange={handleChange}
         />
 
-        <label>Price:</label>
+        <label>Hinta:</label>
         <input
           name="price"
           type="number"
@@ -149,14 +149,14 @@ const Add = () => {
           onChange={handleChange}
         />
 
-        <label>Image:</label>
+        <label>Kuva:</label>
         <input
           type="file"
           name="testImage"
           onChange={handleImageChange} // Handle image selection
         />
 
-        <button type="submit" className="add-button">Submit</button>
+        <button type="submit" className="add-button">Tallenna</button>
       </form>
     </div>
   );

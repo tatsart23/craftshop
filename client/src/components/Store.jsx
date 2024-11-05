@@ -91,37 +91,57 @@ const Store = () => {
   };
 
   const deleteItem = (item) => {
-    console.log("Deleting item with ID:", item._id); // Lisää loki ID:stä
-    axios
-      .delete(`http://localhost:5000/deleteItem/${item._id}`)
-      .then((response) => {
-        Swal.fire({
-          background: "#ffef76",
-          text: "Tuote poistettu!",
-          icon: "success",
-          buttonsStyling: false,
-          customClass: {
-            confirmButton: "buy-button",
-            popup: "popup-class",
-          },
-          button: "Close",
-        }).then(() => {
-          window.location.reload();
-        });
-      })
-      .catch((error) => {
-        console.error("There was an error deleting the item!", error);
-        alert(
-          `Error deleting item: ${
-            error.response?.data?.error || "Unknown error"
-          }`
-        );
-      });
+    Swal.fire({
+      background: "#ffef76",
+      text: "Oletko varma, että haluat poistaa tuotteen?",
+      icon: "warning", // Käytetään varoitusikonia
+      showCancelButton: true, // Näyttää peruuta-painikkeen
+      confirmButtonText: "Hyväksy",
+      cancelButtonText: "Peruuta",
+      buttonsStyling: false,
+      customClass: {
+        confirmButton: "delete-button",
+        popup: "popup-class",
+        cancelButton: "buy-button", // Lisää luokka peruutuspainikkeelle
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Jos käyttäjä vahvistaa, suoritetaan delete-kutsu
+        console.log("Deleting item with ID:", item._id); // Lisää loki ID:stä
+        axios
+          .delete(`http://localhost:5000/deleteItem/${item._id}`)
+          .then((response) => {
+            Swal.fire({
+              text: "Tuote poistettiin onnistuneesti!",
+              icon: "success",
+              confirmButtonText: "OK",
+              customClass: {
+                confirmButton: "buy-button",
+              },
+            }).then(() => {
+              // Päivitä sivu poiston jälkeen
+              window.location.reload();
+            });
+          })
+          .catch((error) => {
+            console.error("There was an error deleting the item!", error);
+            Swal.fire({
+              text: `Virhe tuotteen poistamisessa: ${
+                error.response?.data?.error || "Tuntematon virhe"
+              }`,
+              icon: "error",
+              confirmButtonText: "OK",
+              customClass: {
+                confirmButton: "buy-button",
+              },
+            });
+          });
+      }
+    });
   };
-
   return (
     <div>
-      <h1>Store</h1>
+      <h1>Kauppa</h1>
       <div className="store-container">
         {loading ? (
           <Bars color="#ff6550" /> // Show loading spinner
@@ -168,7 +188,7 @@ const Store = () => {
                     addToCart(item);
                   }}
                 >
-                  Add to cart
+                  Lisää koriin
                 </button>
               </li>
             ))}

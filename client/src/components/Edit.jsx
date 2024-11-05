@@ -41,7 +41,7 @@ const Edit = ({ item, onClose }) => {
       <div className="edit-info">
         <form className="edit-wrapper" onSubmit={handleEdit}>
           <div className="edit-header">
-            <h2>Edit Product</h2>
+            <h2>Muokkaa tuotetta</h2>
             <button className="edit-close-button" onClick={onClose}>
               X
             </button>
@@ -51,7 +51,7 @@ const Edit = ({ item, onClose }) => {
             src={`${item.imagePath}`} // imagePath URL
             alt={`${item.product_name}'s image`}
           />
-          <label>Product Name:</label>
+          <label>Tuotteen nimi:</label>
           <input
             name="product_name"
             placeholder="Product Name"
@@ -59,7 +59,7 @@ const Edit = ({ item, onClose }) => {
             onChange={handleChange}
           />
 
-          <label>Description:</label>
+          <label>Kuvaus:</label>
           <input
             name="description"
             type="text"
@@ -68,7 +68,7 @@ const Edit = ({ item, onClose }) => {
             onChange={handleChange}
           />
 
-          <label>Description Long:</label>
+          <label>Kuvaus pitkä:</label>
           <textarea
             name="description_big"
             className="description_big"
@@ -77,7 +77,7 @@ const Edit = ({ item, onClose }) => {
             onChange={handleChange}
           />
 
-          <label>Price:</label>
+          <label>Hinta:</label>
           <input
             name="price"
             type="number"
@@ -87,7 +87,7 @@ const Edit = ({ item, onClose }) => {
           />
 
           <button className="edit-button" type="submit">
-            Save
+            Tallenna
           </button>
         </form>
       </div>

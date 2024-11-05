@@ -27,15 +27,9 @@ const Home = () => {
   return (
     <div className="home-container">
       <Carousel data={carouselData} />
-      <h1 className="welcome-text">Home</h1>
+      <h1 className="welcome-text">Tervetuloa kauppaamme</h1>
 
-      {auth.token ? (
-        <>
-          <p>Welcome {auth.user} </p>
-        </>
-      ) : (
-        <p>Welcome</p>
-      )}
+      <h2 className="post-title">Uusimmat postaukset</h2>
       <Post />
       
     </div>

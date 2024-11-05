@@ -31,7 +31,7 @@ const Login = () => {
       <img src="/img/lehdet.png" alt="" />
       <form onSubmit={handleSubmitEvent}>
         <div className="form-control">
-          <label htmlFor="username"><h2>Username:</h2></label>
+          <label htmlFor="username"><h2>Käyttäjätunnus:</h2></label>
           <input
             type="text"
             id="username"
@@ -44,7 +44,7 @@ const Login = () => {
           <div id="user-email" className="sr-only"></div>
         </div>
         <div className="form-control">
-          <label htmlFor="password"><h2>Password:</h2></label>
+          <label htmlFor="password"><h2>Salasana:</h2></label>
           <input
             placeholder="Password"
             type="password"
@@ -56,7 +56,7 @@ const Login = () => {
           />
           <div id="user-password" className="sr-only"></div>
         </div>
-        <button className="btn-submit">Login</button>
+        <button className="btn-submit">Kirjaudu</button>
       </form>
       <img src="/img/lehdet.png" alt="" />
     </div>
