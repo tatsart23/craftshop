@@ -113,7 +113,6 @@ nav a:focus {
   font-weight: bold;
   background-image: var(--button-color);
   background-size: 200%;
-  color: white;
   text-decoration: none;
   border: none;
   border-radius: 5px;
@@ -134,6 +133,62 @@ nav a:focus {
 
 .nav-button:focus {
   outline: none;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown button{
+  width: 6rem;
+  font-family: "Caveat", cursive;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: "Caveat", serif;
+  padding: 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  background-image: var(--button-color);
+  background-size: 200%;
+  color: var(--font-color);
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.6s;
+  text-transform: uppercase;
+  border-bottom: #ff6550 solid 1px;
+  border-right: #ff6550 solid 1px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: none;
+  flex-direction: column;
+  background-color: var(--main-color);
+  border: 2px solid var(--border-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 0.5em 0;
+  min-width: 160px;
+  z-index: 10;
+}
+
+.dropdown-menu li {
+  padding: 0.5em 1em;
+}
+
+.dropdown-menu li:hover {
+  background-color: var(--hover-color);
+}
+
+/* Show dropdown when active */
+.dropdown-menu.show {
+  display: flex;
 }
 
 nav .menu {
@@ -816,6 +871,22 @@ nav .menu span {
   height: auto;
 }
 
+.post-header{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: relative; /* Make the parent container relative */
+}
+
+.post-item img{
+  margin: 1rem;
+  width: auto;
+  height: 15rem;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
 .post-item{
   background-color: var(--main-color);
   border: 2px solid var(--border-color);
@@ -839,6 +910,10 @@ nav .menu span {
   .shop-button {
     right: 3rem;
     bottom: 2rem;
+  }
+
+  .post-item{
+    width: 50rem;
   }
 }
 
@@ -876,6 +951,10 @@ nav .menu span {
     width: 5rem;
     height: auto;
   }
+
+  .post-item{
+    width: 40rem;
+  }
 }
 
 @media (max-width: 795px) {
@@ -903,6 +982,10 @@ nav .menu span {
 
   .shop-button {
     right: 1rem;
+  }
+
+  .post-item{
+    width: 35rem;
   }
 }
 
@@ -960,6 +1043,10 @@ nav .menu span {
   .store-wrapper li {
     width: 100%;
   }
+
+  .post-item{
+    width: 30rem;
+  }
 }
 
 @media (max-width: 550px) {
@@ -1013,6 +1100,10 @@ nav .menu span {
     width: 400px;
     height: 300px;
   }
+
+  .post-item{
+    width: 25rem;
+  }
 }
 
 @media (max-width: 420px) {
@@ -1024,6 +1115,10 @@ nav .menu span {
   .carousel-container{
     width: 300px;
     height: 200px;
+  }
+
+  .post-item{
+    width: 20rem;
   }
 }
 
@@ -1046,5 +1141,14 @@ nav .menu span {
   .carousel-container{
     width: 250px;
     height: 150px;
+  }
+
+  .post-item img {
+    width: 10rem;
+    height: 10rem;
+  }
+
+  .post-item{
+    width: 15rem;
   }
 }
