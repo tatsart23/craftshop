@@ -13,11 +13,11 @@ const Modal = ({ item, onClose, addToCart }) => {
         <div className="modal-info">
           <h2>{item.product_name}</h2>
           <p>{item.description_big}</p>
-          <p>Price: {item.price} €</p>
+          <p>Hinta: {item.price} €</p>
           <button className="modal-close-button" onClick={onClose}>X</button>
           <button className="buy-button" onClick={(e) => {
                   addToCart(item);
-                }}>Add to cart</button>
+                }}>Lisää ostoskoriin</button>
         </div>
       </div>
     </div>

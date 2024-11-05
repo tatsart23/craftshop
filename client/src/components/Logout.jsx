@@ -8,11 +8,11 @@ const Logout = () => {
     
   return (
     <div>
-      <h1>Logout</h1>
+      <h1>Kirjaudu ulos</h1>
       <button className='logout-button' onClick={() => {
         auth.logOut()
         navigate('/')
-      }}>Log out</button>
+      }}>Kirjaudu ulos</button>
     </div>
   )
 }

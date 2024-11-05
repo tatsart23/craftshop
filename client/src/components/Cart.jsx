@@ -31,12 +31,12 @@ const Cart = ({
 
   return (
     <div>
-      <h1>Your Cart</h1>
-      <h3>Total Price: {calculateTotal()}</h3>
-      <p>Total items: {calculateTotalItems()}</p>
+      <h1>Ostoskorisi</h1>
+      <h3>Kokonaishinta: {calculateTotal()}</h3>
+      <p>Tuotteiden määrä: {calculateTotalItems()}</p>
 
       {cartItems.length === 0 ? (
-        <p>Your cart is empty.</p>
+        <p>Korisi on tyhjä</p>
       ) : (
         <div>
           {cartItems.map((item) => (
@@ -49,9 +49,9 @@ const Cart = ({
               </div>
               <div className="cart-info">
                 <h3>{item.name}</h3>
-                <p>Price: ${item.price}</p>
+                <p>Hinta: {item.price}£</p>
                 <p>
-                  Quantity:
+                  Määrä:
                   <input
                     type="number"
                     value={item.quantity}
@@ -61,14 +61,14 @@ const Cart = ({
                     min="1"
                   />
                 </p>
-                <p>Total: ${(item.price * item.quantity).toFixed(2)}</p>
-                <button className="remove-button" onClick={() => removeFromCart(item.id)}>Remove</button>
+                <p>Summa: ${(item.price * item.quantity).toFixed(2)}</p>
+                <button className="remove-button" onClick={() => removeFromCart(item.id)}>Poista</button>
               </div>
             </div>
           ))}         
         </div>
       )}
-      <button onClick={makePayment}>Checkout</button>
+      <button onClick={makePayment}>Maksamaan</button>
     </div>
   );
 };

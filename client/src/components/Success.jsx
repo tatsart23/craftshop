@@ -5,7 +5,7 @@ const Success = ({ emptyCart }) => {
   return (
     
     <div>
-      <h1>Your payment was successfull!</h1>
+      <h1>Maksu hyväksytty!!</h1>
     </div>
   )
 }

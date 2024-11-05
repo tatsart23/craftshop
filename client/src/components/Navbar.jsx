@@ -35,15 +35,15 @@ const Navbar = () => {
       <div className={`links ${showMenu ? "open" : ""}`}>
         <Link to="/" className="nav-button">
           <HomeIcon />
-          Home
+          Koti
         </Link>
         <Link to="/about" className="nav-button">
           <HelpIcon />
-          About
+          Meistä
         </Link>
         <Link to="/store" className="nav-button">
           <StorefrontIcon />
-          Store
+          Kauppa
         </Link>
 
         {/* Dropdown for Authenticated Links */}
@@ -51,25 +51,25 @@ const Navbar = () => {
           <div className="dropdown">
             <button className="nav-button" onClick={toggleDropdown}>
               <AddCircleIcon />
-              Actions
+              Toiminnot
             </button>
             <ul className={`dropdown-menu ${showDropdown ? "show" : ""}`}>
               <li>
                 <Link to="/add" className="nav-button">
                   <AddCircleIcon />
-                  Add Product
+                  Lisää tuote
                 </Link>
               </li>
               <li>
                 <Link to="/create" className="nav-button">
                   <AddCircleIcon />
-                  Create Post
+                  Luo päivitys
                 </Link>
               </li>
               <li>
                 <Link to="/addcarousel" className="nav-button">
                   <AddCircleIcon />
-                  Add Carousel
+                  Lisää karuselliin
                 </Link>
               </li>
             </ul>
@@ -79,12 +79,12 @@ const Navbar = () => {
         {auth.token ? (
           <Link to="/logout" className="nav-button">
             <LogoutIcon />
-            Logout
+            Kirjaudu ulos
           </Link>
         ) : (
           <Link to="/login" className="nav-button">
             <LoginIcon />
-            Log in
+            Kirjaudu sisään
           </Link>
         )}
       </div>

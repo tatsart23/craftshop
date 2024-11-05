@@ -49,9 +49,9 @@ const CreatePost = () => {
   return (
     <div>
       <form className="data-wrapper" onSubmit={handleSubmit} encType='multipart/form-data'>
-        <h2>Create Post</h2>
+        <h2>Luo päivitys</h2>
 
-        <label>Title:</label>
+        <label>Otsikko:</label>
         <input
           name="title"
           placeholder="Title"
@@ -60,7 +60,7 @@ const CreatePost = () => {
           required
         />
 
-        <label>Content:</label>
+        <label>Sisältö:</label>
         <textarea
           name="content"
           placeholder="Content"
@@ -69,12 +69,12 @@ const CreatePost = () => {
           required
         />
 
-        <label>Image:</label>
+        <label>Kuva:</label>
         <input type="file" name="image"
         onChange={handleImageChange}
         />
 
-        <button type="submit" className="add-button">Submit</button>
+        <button type="submit" className="add-button">Tallenna</button>
       </form>
     </div>
   );

@@ -66,9 +66,9 @@ const addCarousel = () => {
       
         <form className="data-wrapper" onSubmit={handleSubmit} encType='multipart/form-data'>
 
-            <h2>Add to Carousel</h2>
+            <h2>Lisää karuselliin</h2>
 
-            <label>Text:</label>
+            <label>Teksti:</label>
             <input
                 name="text"
                 placeholder="Text"
@@ -77,13 +77,13 @@ const addCarousel = () => {
                 required
             />
 
-            <label>Image:</label>
+            <label>Kuva:</label>
             <input type="file" name="image"
                 onChange={handleImageChange}
                 required
             />
 
-            <button type="submit" className="add-button">Submit</button>
+            <button type="submit" className="add-button">Tallenna</button>
         </form>
 
     </div>
