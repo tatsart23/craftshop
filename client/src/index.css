@@ -108,7 +108,8 @@ nav a:focus {
   justify-content: center;
   text-align: center;
   font-family: "Caveat", serif;
-  padding: 0.5rem;
+  padding: 1rem;
+  
   font-size: 1rem;
   font-weight: bold;
   background-image: var(--button-color);
@@ -148,7 +149,7 @@ nav a:focus {
   justify-content: center;
   text-align: center;
   font-family: "Caveat", serif;
-  padding: 1.5rem;
+  padding: 2.0rem;
   font-size: 1rem;
   font-weight: bold;
   background-image: var(--button-color);
@@ -729,8 +730,8 @@ nav .menu span {
 }
 
 .cart-wrapper img {
-  width: 22rem;
-  height: 15rem;
+  width: 15rem;
+  height: auto;
 }
 
 .cart-wrapper input {
@@ -758,6 +759,14 @@ nav .menu span {
 
 .cart-info p {
   margin: 0.5rem;
+}
+
+.cart-container{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .remove-button {
@@ -1004,6 +1013,10 @@ nav .menu span {
   .post-item{
     width: 40rem;
   }
+
+  .store-container li:hover {
+    width: 17.8rem;
+  }
 }
 
 @media (max-width: 795px) {
@@ -1033,8 +1046,15 @@ nav .menu span {
     right: 1rem;
   }
 
+  .post-para{
+    margin-left: 0rem;
+  }
+
   .post-item{
     width: 35rem;
+    flex-direction: column;
+    justify-content: center;
+  
   }
 }
 
