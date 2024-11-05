@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "./AuthProvider";
+import LoginIcon from "@mui/icons-material/Login";
 
 const Login = () => {
   const [input, setInput] = useState({
@@ -29,7 +30,7 @@ const Login = () => {
   return (
     <div className="login-container ">
       <img src="/img/lehdet.png" alt="" />
-      <form onSubmit={handleSubmitEvent}>
+      <form className="form-container" onSubmit={handleSubmitEvent}>
         <div className="form-control">
           <label htmlFor="username"><h2>Käyttäjätunnus:</h2></label>
           <input
@@ -56,7 +57,7 @@ const Login = () => {
           />
           <div id="user-password" className="sr-only"></div>
         </div>
-        <button className="btn-submit">Kirjaudu</button>
+        <button className="btn-submit"><LoginIcon />Kirjaudu</button>
       </form>
       <img src="/img/lehdet.png" alt="" />
     </div>

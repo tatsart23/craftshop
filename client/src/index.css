@@ -108,7 +108,8 @@ nav a:focus {
   justify-content: center;
   text-align: center;
   font-family: "Caveat", serif;
-  padding: 0.5rem;
+  padding: 1rem;
+  
   font-size: 1rem;
   font-weight: bold;
   background-image: var(--button-color);
@@ -148,7 +149,7 @@ nav a:focus {
   justify-content: center;
   text-align: center;
   font-family: "Caveat", serif;
-  padding: 1.5rem;
+  padding: 2.0rem;
   font-size: 1rem;
   font-weight: bold;
   background-image: var(--button-color);
@@ -493,6 +494,8 @@ nav .menu span {
   padding: 0.5rem;
   display: flex;
   justify-content: center;
+  font-family: "Caveat", cursive;
+  font-size: 1.4rem;
   align-items: center;
   background-image: var(--button-color);
   background-size: 200%;
@@ -672,11 +675,22 @@ nav .menu span {
   background-color: transparent;
 }
 
-.login-container button {
+.form-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+.btn-submit{
   padding: 0.5rem;
   margin: 1rem;
-  width: 5rem;
+  display: flex;
+  width: 8rem;
   height: 2.4rem;
+  text-align: center;
+  justify-content: center;
   background-image: var(--button-color);
   font-family: "caveat", serif;
   font-size: 1.5rem;
@@ -690,9 +704,9 @@ nav .menu span {
   transition: 0.6s;
 }
 
-.login-container button:hover {
-  background-position: right;
 
+.btn-submit:hover {
+  background-position: right;
   border-top: var(--border-color) solid 1px;
   border-left: var(--border-color) solid 1px;
   border-right: none;
@@ -729,8 +743,8 @@ nav .menu span {
 }
 
 .cart-wrapper img {
-  width: 22rem;
-  height: 15rem;
+  width: 15rem;
+  height: auto;
 }
 
 .cart-wrapper input {
@@ -758,6 +772,14 @@ nav .menu span {
 
 .cart-info p {
   margin: 0.5rem;
+}
+
+.cart-container{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .remove-button {
@@ -1004,6 +1026,10 @@ nav .menu span {
   .post-item{
     width: 40rem;
   }
+
+  .store-container li:hover {
+    width: 17.8rem;
+  }
 }
 
 @media (max-width: 795px) {
@@ -1033,8 +1059,15 @@ nav .menu span {
     right: 1rem;
   }
 
+  .post-para{
+    margin-left: 0rem;
+  }
+
   .post-item{
     width: 35rem;
+    flex-direction: column;
+    justify-content: center;
+  
   }
 }
 
