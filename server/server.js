@@ -360,6 +360,10 @@ app.post("/create-checkout-session", async (req, res) => {
 
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
+    billing_address_collection: 'required',
+    shipping_address_collection: {
+        allowed_countries: ['FI']
+    },
     line_items: lineItems,
     mode: "payment",
     success_url: `http://localhost:5173/success`,
